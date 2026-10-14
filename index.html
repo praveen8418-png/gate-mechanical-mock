@@ -1,0 +1,6343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#102a43">
+<meta name="description" content="GATE Mechanical Engineering mock tests, question bank and results.">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+<link rel="apple-touch-icon" href="./icon-192.png">
+
+<title>GATE Mechanical Engineering Exam Portal</title>
+
+<!-- MathJax Configuration -->
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [
+      ['$', '$'],
+      ['\\(', '\\)']
+    ]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<!-- MathJax Library -->
+<script defer
+src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+</script>
+
+<style>
+
+/* GENERAL DESIGN */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f1f5f9;
+  color: #172033;
+}
+
+/* HEADER */
+
+header {
+  background: #102a43;
+  color: white;
+  padding: 18px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0 0 8px;
+  font-size: 24px;
+}
+
+header p {
+  margin: 0;
+  color: #dbeafe;
+}
+
+/* NAVIGATION */
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  padding: 12px;
+  background: white;
+  border-bottom: 1px solid #ddd;
+}
+
+/* BUTTONS */
+
+button {
+  cursor: pointer;
+  border: 0;
+  border-radius: 6px;
+  padding: 10px 14px;
+  background: #1769aa;
+  color: white;
+  font-weight: bold;
+}
+
+button:hover {
+  opacity: 0.88;
+}
+
+button.secondary {
+  background: #475569;
+}
+
+button.danger {
+  background: #c62828;
+}
+
+button.success {
+  background: #16804a;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* MAIN CONTAINER */
+
+main {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 12px;
+}
+
+/* CARDS */
+
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 8px #0000000d;
+}
+
+h2,
+h3 {
+  margin-top: 0;
+}
+
+/* INPUTS */
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  margin: 5px 0 12px;
+  font: inherit;
+}
+
+label {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* GRID */
+
+.grid {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+/* UTILITY CLASSES */
+
+.hidden {
+  display: none !important;
+}
+
+.small {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.badge {
+  display: inline-block;
+  background: #e0f2fe;
+  color: #075985;
+  border-radius: 20px;
+  padding: 4px 9px;
+  margin: 3px;
+  font-size: 12px;
+}
+
+/* SUBJECT LIST */
+
+.subject-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.subject-row input {
+  margin: 0;
+}
+
+/* EXAM TIMER */
+
+#timer {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: #fff7ed;
+  color: #9a3412;
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+  padding: 12px;
+  border: 2px solid #fb923c;
+  border-radius: 8px;
+}
+
+/* EXAM LAYOUT */
+
+.exam-layout {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr) 270px;
+  gap: 15px;
+}
+
+/* QUESTION BOX */
+
+.question-box {
+  background: white;
+  border-radius: 10px;
+  padding: 22px;
+  min-height: 350px;
+}
+
+#questionText {
+  font-size: 18px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+/* OPTIONS */
+
+.option {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 12px;
+  border: 1px solid #dbe3ec;
+  border-radius: 7px;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+.option:hover {
+  background: #eff6ff;
+}
+
+.option input {
+  width: auto;
+  margin: 3px 0;
+}
+
+.option label {
+  font-weight: normal;
+  cursor: pointer;
+}
+
+/* QUESTION PALETTE */
+
+.palette {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+}
+
+.palette button {
+  padding: 10px 2px;
+  background: #e2e8f0;
+  color: #111827;
+}
+
+.palette button.answered {
+  background: #16a34a;
+  color: white;
+}
+
+.palette button.review {
+  background: #7c3aed;
+  color: white;
+}
+
+.palette button.current {
+  outline: 3px solid #f59e0b;
+}
+
+.legend {
+  font-size: 12px;
+  margin: 12px 0;
+  line-height: 2;
+}
+
+/* QUESTION IMAGE */
+
+#questionImage {
+  max-width: 100%;
+  max-height: 360px;
+  display: block;
+  margin: 12px auto;
+  object-fit: contain;
+}
+
+/* RESULTS TABLE */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #cbd5e1;
+  padding: 9px;
+  text-align: left;
+}
+
+th {
+  background: #eaf2f8;
+}
+
+/* ACTION BUTTONS */
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.score {
+  font-size: 30px;
+  font-weight: bold;
+  color: #1769aa;
+}
+
+/* FOOTER */
+
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #64748b;
+}
+
+/* MOBILE RESPONSIVE */
+
+@media (max-width: 760px) {
+
+  .exam-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .subject-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .subject-row strong {
+    grid-column: 1 / -1;
+  }
+
+  header h1 {
+    font-size: 20px;
+  }
+
+  main {
+    padding: 8px;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+  <h1>GATE Mechanical Engineering</h1>
+
+  <p>
+    Question Bank • Random Mock Test •
+    65 Questions • 180 Minutes
+  </p>
+
+</header>
+
+<nav>
+
+  <button onclick="showPage('dashboard')">
+    Dashboard
+  </button>
+
+  <button onclick="showPage('subjects')">
+    Manage Subjects
+  </button>
+
+  <button onclick="showPage('bank')">
+    Question Bank
+  </button>
+
+  <button onclick="showPage('settings')">
+    Exam Settings
+  </button>
+
+  <button onclick="showPage('results')">
+    Latest Results
+  </button>
+
+</nav>
+
+<main>
+
+<!-- PART 2 CODE WILL START HERE -->
+  <!-- ====================================== -->
+<!-- PART 2: DASHBOARD -->
+<!-- ====================================== -->
+
+<section id="dashboard" class="page">
+
+  <div class="card">
+
+    <h2>GATE Mechanical Dashboard</h2>
+
+    <p>
+      Welcome to your GATE Mechanical Engineering
+      Mock Test Portal.
+    </p>
+
+    <div class="grid">
+
+      <div class="card">
+        <h3>Total Subjects</h3>
+        <div class="score" id="subjectCount">0</div>
+      </div>
+
+      <div class="card">
+        <h3>Question Bank</h3>
+        <div class="score" id="questionCount">0</div>
+        <p class="small">Total stored questions</p>
+      </div>
+
+      <div class="card">
+        <h3>Exam Duration</h3>
+        <div class="score">180 min</div>
+      </div>
+
+      <div class="card">
+        <h3>Total Questions</h3>
+        <div class="score">65</div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- START EXAM CARD -->
+
+  <div class="card">
+
+    <h2>Start Mock Examination</h2>
+
+    <p>
+      Subject-wise question distribution ప్రకారం
+      Question Bank నుంచి random questions select అవుతాయి.
+    </p>
+
+    <ul>
+      <li>Total Questions: 65</li>
+      <li>Exam Duration: 180 Minutes</li>
+      <li>1-Mark and 2-Mark Questions</li>
+      <li>Subject-wise Marks Distribution</li>
+      <li>Automatic Result Generation</li>
+    </ul>
+
+    <button
+      class="success"
+      onclick="startExam()">
+      Start Exam
+    </button>
+
+    <div id="dashboardMessage"></div>
+
+  </div>
+
+
+  <!-- QUICK GUIDE -->
+
+  <div class="card">
+
+    <h2>Quick Guide</h2>
+
+    <ol>
+      <li>Add subjects using Manage Subjects.</li>
+      <li>Add questions in the Question Bank.</li>
+      <li>Upload images wherever required.</li>
+      <li>Configure the marks distribution.</li>
+      <li>Start your 180-minute examination.</li>
+      <li>Submit the exam to view results.</li>
+    </ol>
+
+  </div>
+
+</section>
+
+
+<!-- ====================================== -->
+<!-- PART 2: SUBJECT MANAGEMENT -->
+<!-- ====================================== -->
+
+<section id="subjects" class="page hidden">
+
+  <div class="card">
+
+    <h2>Manage Mechanical Engineering Subjects</h2>
+
+    <p>
+      నీకు కావలసినన్ని subjects add చేసుకోవచ్చు.
+      ప్రతి subject కి ప్రత్యేక Question Bank ఉంటుంది.
+    </p>
+
+    <label for="newSubject">
+      New Subject Name
+    </label>
+
+    <input
+      type="text"
+      id="newSubject"
+      placeholder="Example: Fluid Mechanics">
+
+    <button
+      onclick="addSubject()">
+      Add Subject
+    </button>
+
+    <button
+      class="secondary"
+      onclick="document.getElementById('newSubject').value=''">
+      Clear
+    </button>
+
+    <div id="subjectMessage"></div>
+
+  </div>
+
+
+  <!-- SUBJECT LIST -->
+
+  <div class="card">
+
+    <h2>Available Subjects</h2>
+
+    <p class="small">
+      Subject పేరు పక్కన ఉన్న Delete button ద్వారా
+      ఖాళీగా ఉన్న subjects తొలగించవచ్చు.
+    </p>
+
+    <div id="subjectList"></div>
+
+  </div>
+
+</section>
+
+
+<!-- ====================================== -->
+<!-- SUBJECT MANAGEMENT JAVASCRIPT -->
+<!-- ====================================== -->
+
+<script>
+
+/*
+IMPORTANT:
+
+ఈ functions ను Part 4 లో ఇచ్చే IndexedDB
+database functions తో కలిపి ఉపయోగించాలి.
+
+Part 4 లో database functions నిర్వచించిన తర్వాత
+ఈ functions పనిచేస్తాయి.
+*/
+
+
+// Add a new subject
+
+async function addSubject() {
+
+  const input = document.getElementById("newSubject");
+
+  const message = document.getElementById("subjectMessage");
+
+  const name = input.value.trim();
+
+  if (!name) {
+
+    message.textContent = "Please enter a subject name.";
+
+    return;
+
+  }
+
+  if (!db) {
+
+    message.textContent =
+      "Database is not ready. Please wait and try again.";
+
+    return;
+
+  }
+
+  try {
+
+    const existingSubjects = await allSubjects();
+
+    const alreadyExists = existingSubjects.some(
+      subject =>
+        subject.name.toLowerCase() === name.toLowerCase()
+    );
+
+    if (alreadyExists) {
+
+      message.textContent =
+        "This subject already exists.";
+
+      return;
+
+    }
+
+    await reqPromise(
+      store("subjects", "readwrite").put({
+        name: name
+      })
+    );
+
+    input.value = "";
+
+    message.textContent =
+      "Subject added successfully: " + name;
+
+    await refreshAll();
+
+  } catch (error) {
+
+    console.error(error);
+
+    message.textContent =
+      "Unable to add subject. Please try again.";
+
+  }
+
+}
+
+
+// Display all subjects
+
+async function renderSubjects() {
+
+  const container = document.getElementById("subjectList");
+
+  if (!container || !db) return;
+
+  try {
+
+    const records = await allSubjects();
+
+    records.sort((a, b) =>
+      a.name.localeCompare(b.name)
+    );
+
+    container.innerHTML = "";
+
+    if (records.length === 0) {
+
+      container.innerHTML =
+        "<p>No subjects added yet.</p>";
+
+      return;
+
+    }
+
+    records.forEach(subject => {
+
+      const row = document.createElement("div");
+
+      row.className = "subject-row";
+
+      const title = document.createElement("strong");
+
+      title.textContent = subject.name;
+
+      const count = document.createElement("span");
+
+      count.className = "small";
+
+      count.textContent = "Subject available";
+
+      const deleteButton = document.createElement("button");
+
+      deleteButton.className = "danger";
+
+      deleteButton.textContent = "Delete";
+
+      deleteButton.onclick = function () {
+
+        deleteSubject(subject.name);
+
+      };
+
+      row.appendChild(title);
+
+      row.appendChild(count);
+
+      row.appendChild(deleteButton);
+
+      container.appendChild(row);
+
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    container.textContent =
+      "Unable to load subjects.";
+
+  }
+
+}
+
+
+// Delete a subject
+
+async function deleteSubject(name) {
+
+  if (!db) {
+
+    alert("Database is not ready.");
+
+    return;
+
+  }
+
+  try {
+
+    const questions = await allQuestions();
+
+    const subjectHasQuestions = questions.some(
+      question => question.subject === name
+    );
+
+    if (subjectHasQuestions) {
+
+      alert(
+        "This subject contains questions.\n\n" +
+        "Delete or reassign its questions before deleting the subject."
+      );
+
+      return;
+
+    }
+
+    const confirmed = confirm(
+      "Are you sure you want to delete this subject?\n\n" +
+      name
+    );
+
+    if (!confirmed) return;
+
+    await reqPromise(
+      store("subjects", "readwrite").delete(name)
+    );
+
+    if (typeof distribution !== "undefined") {
+
+      delete distribution[name];
+
+      if (typeof saveSetting === "function") {
+
+        await saveSetting("distribution", distribution);
+
+      }
+
+    }
+
+    await refreshAll();
+
+    alert("Subject deleted successfully.");
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert("Unable to delete subject.");
+
+  }
+
+}
+
+</script>
+
+
+<!-- ====================================== -->
+<!-- END OF PART 2 -->
+<!-- PART 3 WILL START BELOW -->
+<!-- ======================================-->
+  <!-- ========================================== -->
+<!-- PART 3: QUESTION BANK INTERFACE -->
+<!-- ========================================== -->
+
+<section id="bank" class="page hidden">
+
+  <!-- QUESTION EDITOR -->
+
+  <div class="card">
+
+    <h2>Question Bank Editor</h2>
+
+    <p class="small">
+      Add Mechanical Engineering questions with
+      mathematical equations, options, explanations and images.
+    </p>
+
+    <label for="qSubject">Select Subject</label>
+
+    <select id="qSubject">
+      <option value="">Select Subject</option>
+    </select>
+
+
+    <label for="qChapter">Chapter / Topic</label>
+
+    <input
+      type="text"
+      id="qChapter"
+      placeholder="Example: Friction, Lathe, Heat Transfer">
+
+
+    <label for="qType">Question Type</label>
+
+    <select id="qType" onchange="toggleOptions()">
+
+      <option value="MCQ">
+        MCQ - Single Correct Answer
+      </option>
+
+      <option value="MSQ">
+        MSQ - Multiple Correct Answers
+      </option>
+
+      <option value="NAT">
+        NAT - Numerical Answer
+      </option>
+
+    </select>
+
+
+    <label for="qText">Question Statement</label>
+
+    <textarea
+      id="qText"
+      rows="5"
+      placeholder="Enter question here. MathJax example: $F=ma$">
+    </textarea>
+
+
+    <!-- MATHJAX EXAMPLE -->
+
+    <div class="card">
+
+      <h3>Equation Example</h3>
+
+      <p>
+        Inline equation:
+        $F=ma$
+      </p>
+
+      <p>
+        Display equation:
+      </p>
+
+      <p>
+        $$\sigma=\frac{P}{A}$$
+      </p>
+
+      <p class="small">
+        Use dollar signs for equations.
+        MathJax requires an internet connection to load its library.
+      </p>
+
+    </div>
+
+
+    <!-- OPTIONS -->
+
+    <div id="optionsArea">
+
+      <h3>Answer Options</h3>
+
+      <label for="opt0">Option A</label>
+
+      <textarea
+        id="opt0"
+        rows="2"
+        placeholder="Option A">
+      </textarea>
+
+
+      <label for="opt1">Option B</label>
+
+      <textarea
+        id="opt1"
+        rows="2"
+        placeholder="Option B">
+      </textarea>
+
+
+      <label for="opt2">Option C</label>
+
+      <textarea
+        id="opt2"
+        rows="2"
+        placeholder="Option C">
+      </textarea>
+
+
+      <label for="opt3">Option D</label>
+
+      <textarea
+        id="opt3"
+        rows="2"
+        placeholder="Option D">
+      </textarea>
+
+    </div>
+
+
+    <!-- CORRECT ANSWER -->
+
+    <label for="qAnswer">
+      Correct Answer
+    </label>
+
+    <input
+      type="text"
+      id="qAnswer"
+      placeholder="MCQ: A | MSQ: A,C | NAT: 12.5">
+
+
+    <p class="small">
+      MCQ: A, B, C or D<br>
+      MSQ: Example A,C<br>
+      NAT: Enter the correct numerical value.
+    </p>
+
+
+    <!-- EXPLANATION -->
+
+    <label for="qExplanation">
+      Solution / Explanation
+    </label>
+
+    <textarea
+      id="qExplanation"
+      rows="5"
+      placeholder="Enter detailed solution here. MathJax is supported.">
+    </textarea>
+
+
+    <!-- IMAGE UPLOAD -->
+
+    <label for="qImage">
+      Upload Question Image
+    </label>
+
+    <input
+      type="file"
+      id="qImage"
+      accept="image/*"
+      onchange="previewQuestionImage()">
+
+
+    <p class="small">
+      You can upload diagrams, machine drawings,
+      graphs, circuit diagrams and scanned questions.
+      Maximum image size: 8 MB.
+    </p>
+
+
+    <!-- IMAGE PREVIEW -->
+
+    <div class="card">
+
+      <h3>Image Preview</h3>
+
+      <img
+        id="editorImagePreview"
+        class="hidden"
+        alt="Question image preview"
+        style="
+          max-width:100%;
+          max-height:350px;
+          object-fit:contain;
+        ">
+
+    </div>
+
+
+    <!-- BUTTONS -->
+
+    <div class="actions">
+
+      <button
+        onclick="saveQuestion()">
+        Save Question
+      </button>
+
+      <button
+        class="secondary"
+        onclick="clearQuestionForm()">
+        Clear Form
+      </button>
+
+      <button
+        class="secondary"
+        onclick="previewQuestion()">
+        Preview Question
+      </button>
+
+    </div>
+
+    <div id="bankMessage"></div>
+
+  </div>
+
+
+  <!-- QUESTION PREVIEW -->
+
+  <div
+    class="card hidden"
+    id="questionPreview">
+
+    <h2>Question Preview</h2>
+
+    <div id="questionPreviewContent"></div>
+
+  </div>
+
+
+  <!-- QUESTION SEARCH -->
+
+  <div class="card">
+
+    <h2>Search Question Bank</h2>
+
+    <div class="grid">
+
+      <div>
+
+        <label for="filterSubject">
+          Filter by Subject
+        </label>
+
+        <select
+          id="filterSubject"
+          onchange="loadBankList()">
+
+          <option value="">
+            All Subjects
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div>
+
+        <label for="bankSearch">
+          Search Questions
+        </label>
+
+        <input
+          type="search"
+          id="bankSearch"
+          placeholder="Search question or chapter..."
+          oninput="loadBankList()">
+
+      </div>
+
+    </div>
+
+    <p id="bankListCount">
+      Loading questions...
+    </p>
+
+    <div id="bankList"></div>
+
+  </div>
+
+
+  <!-- EXPORT / IMPORT -->
+
+  <div class="card">
+
+    <h2>Question Bank Backup</h2>
+
+    <p>
+      Export your questions as JSON for backup
+      or import a previously exported question bank.
+    </p>
+
+    <button
+      onclick="exportBank()">
+      Export Question Bank
+    </button>
+
+    <label for="importFile">
+      Import Question Bank JSON
+    </label>
+
+    <input
+      type="file"
+      id="importFile"
+      accept=".json,application/json">
+
+    <button
+      class="secondary"
+      onclick="importBank()">
+      Import Questions
+    </button>
+
+    <p class="small">
+      JSON backup contains question text, options,
+      answers and explanations. Image files need
+      a separate backup method.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- ========================================== -->
+<!-- PART 3: QUESTION BANK JAVASCRIPT -->
+<!-- ========================================== -->
+
+<script>
+
+/*
+This part uses the database functions that will be
+provided in Part 4:
+
+db
+store()
+reqPromise()
+allQuestions()
+allSubjects()
+refreshAll()
+*/
+
+
+// ==========================================
+// 1. SHOW / HIDE OPTIONS
+// ==========================================
+
+function toggleOptions() {
+
+  const type =
+    document.getElementById("qType").value;
+
+  const area =
+    document.getElementById("optionsArea");
+
+  if (type === "NAT") {
+
+    area.classList.add("hidden");
+
+  } else {
+
+    area.classList.remove("hidden");
+
+  }
+
+}
+
+
+// ==========================================
+// 2. IMAGE PREVIEW
+// ==========================================
+
+let editorPreviewURL = null;
+
+function previewQuestionImage() {
+
+  const input =
+    document.getElementById("qImage");
+
+  const preview =
+    document.getElementById("editorImagePreview");
+
+  const file = input.files[0];
+
+  if (!file) {
+
+    preview.classList.add("hidden");
+
+    preview.removeAttribute("src");
+
+    return;
+
+  }
+
+  if (!file.type.startsWith("image/")) {
+
+    alert("Please select a valid image.");
+
+    input.value = "";
+
+    return;
+
+  }
+
+  if (file.size > 8 * 1024 * 1024) {
+
+    alert(
+      "Image size exceeds 8 MB. Please resize the image."
+    );
+
+    input.value = "";
+
+    return;
+
+  }
+
+  if (editorPreviewURL) {
+
+    URL.revokeObjectURL(editorPreviewURL);
+
+  }
+
+  editorPreviewURL =
+    URL.createObjectURL(file);
+
+  preview.src = editorPreviewURL;
+
+  preview.classList.remove("hidden");
+
+}
+
+
+// ==========================================
+// 3. CLEAR QUESTION FORM
+// ==========================================
+
+function clearQuestionForm() {
+
+  const fields = [
+
+    "qChapter",
+    "qText",
+    "opt0",
+    "opt1",
+    "opt2",
+    "opt3",
+    "qAnswer",
+    "qExplanation"
+
+  ];
+
+  fields.forEach(id => {
+
+    document.getElementById(id).value = "";
+
+  });
+
+  document.getElementById("qImage").value = "";
+
+  document.getElementById("qType").value = "MCQ";
+
+  document.getElementById("editorImagePreview")
+    .classList.add("hidden");
+
+  document.getElementById("editorImagePreview")
+    .removeAttribute("src");
+
+  document.getElementById("bankMessage")
+    .textContent = "";
+
+  document.getElementById("questionPreview")
+    .classList.add("hidden");
+
+  toggleOptions();
+
+}
+
+
+// ==========================================
+// 4. SAVE QUESTION
+// ==========================================
+
+async function saveQuestion() {
+
+  if (!db) {
+
+    alert(
+      "Database is not ready. Please wait."
+    );
+
+    return;
+
+  }
+
+  const subject =
+    document.getElementById("qSubject").value;
+
+  const chapter =
+    document.getElementById("qChapter").value.trim();
+
+  const type =
+    document.getElementById("qType").value;
+
+  const questionText =
+    document.getElementById("qText").value.trim();
+
+  const answer =
+    document.getElementById("qAnswer").value.trim();
+
+
+  if (!subject) {
+
+    alert("Please select a subject.");
+
+    return;
+
+  }
+
+  if (!chapter) {
+
+    alert("Please enter a chapter name.");
+
+    return;
+
+  }
+
+  if (!questionText) {
+
+    alert("Please enter the question.");
+
+    return;
+
+  }
+
+  if (!answer) {
+
+    alert("Please enter the correct answer.");
+
+    return;
+
+  }
+
+
+  // Read four options for MCQ and MSQ
+
+  let options = [];
+
+  if (type !== "NAT") {
+
+    options = [
+
+      document.getElementById("opt0").value.trim(),
+
+      document.getElementById("opt1").value.trim(),
+
+      document.getElementById("opt2").value.trim(),
+
+      document.getElementById("opt3").value.trim()
+
+    ];
+
+    if (options.some(option => !option)) {
+
+      alert("Please fill all four options.");
+
+      return;
+
+    }
+
+  }
+
+
+  // Validate answer format
+
+  if (type === "MCQ") {
+
+    if (!/^[A-D]$/i.test(answer)) {
+
+      alert(
+        "For MCQ, enter only A, B, C or D."
+      );
+
+      return;
+
+    }
+
+  }
+
+
+  if (type === "MSQ") {
+
+    const validLetters = /^[A-D](,[A-D])*$/i;
+
+    if (!validLetters.test(answer)) {
+
+      alert(
+        "For MSQ, enter answers like A,C or B,D."
+      );
+
+      return;
+
+    }
+
+    const letters = answer.toUpperCase().split(",");
+
+    if (new Set(letters).size !== letters.length) {
+
+      alert(
+        "Do not repeat an option in the answer."
+      );
+
+      return;
+
+    }
+
+  }
+
+
+  if (type === "NAT") {
+
+    if (!Number.isFinite(Number(answer))) {
+
+      alert(
+        "For NAT, enter a valid numerical answer."
+      );
+
+      return;
+
+    }
+
+  }
+
+
+  // Read optional image
+
+  const imageInput =
+    document.getElementById("qImage");
+
+  let imageBlob = null;
+
+  if (imageInput.files.length > 0) {
+
+    const file = imageInput.files[0];
+
+    if (!file.type.startsWith("image/")) {
+
+      alert("Select a valid image file.");
+
+      return;
+
+    }
+
+    if (file.size > 8 * 1024 * 1024) {
+
+      alert("Image must be smaller than 8 MB.");
+
+      return;
+
+    }
+
+    imageBlob = file;
+
+  }
+
+
+  // Create question object
+
+  const question = {
+
+    id:
+      "q_" +
+      Date.now() +
+      "_" +
+      Math.random().toString(36).slice(2, 9),
+
+    subject: subject,
+
+    chapter: chapter,
+
+    type: type,
+
+    text: questionText,
+
+    options: options,
+
+    answer: answer.toUpperCase(),
+
+    explanation:
+      document.getElementById("qExplanation")
+        .value.trim(),
+
+    imageBlob: imageBlob,
+
+    createdAt: Date.now()
+
+  };
+
+
+  try {
+
+    await reqPromise(
+
+      store("questions", "readwrite")
+        .add(question)
+
+    );
+
+    document.getElementById("bankMessage")
+      .textContent =
+      "Question saved successfully.";
+
+    clearQuestionForm();
+
+    await refreshAll();
+
+    await loadBankList();
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(
+      "Unable to save the question. " +
+      error.message
+    );
+
+  }
+
+}
+
+
+// ==========================================
+// 5. QUESTION PREVIEW
+// ==========================================
+
+function previewQuestion() {
+
+  const text =
+    document.getElementById("qText").value.trim();
+
+  const type =
+    document.getElementById("qType").value;
+
+  const container =
+    document.getElementById("questionPreviewContent");
+
+  const preview =
+    document.getElementById("questionPreview");
+
+  if (!text) {
+
+    alert("Enter a question before previewing.");
+
+    return;
+
+  }
+
+  let html =
+    "<p><b>Question:</b></p>" +
+    "<div>" + escapeHTML(text) + "</div>";
+
+  if (type !== "NAT") {
+
+    ["opt0", "opt1", "opt2", "opt3"]
+      .forEach((id, index) => {
+
+        const option =
+          document.getElementById(id).value;
+
+        html +=
+          "<p>" +
+          "ABCD"[index] +
+          ". " +
+          escapeHTML(option) +
+          "</p>";
+
+      });
+
+  }
+
+  container.innerHTML = html;
+
+  preview.classList.remove("hidden");
+
+  if (window.MathJax &&
+      MathJax.typesetPromise) {
+
+    MathJax.typesetPromise([container]);
+
+  }
+
+}
+
+
+// ==========================================
+// 6. LOAD QUESTION BANK
+// ==========================================
+
+async function loadBankList() {
+
+  if (!db) return;
+
+  const container =
+    document.getElementById("bankList");
+
+  const subjectFilter =
+    document.getElementById("filterSubject").value;
+
+  const search =
+    document.getElementById("bankSearch")
+      .value.trim().toLowerCase();
+
+  const questions =
+    await allQuestions();
+
+  const filtered = questions.filter(question => {
+
+    const matchesSubject =
+      !subjectFilter ||
+      question.subject === subjectFilter;
+
+    const searchableText = [
+
+      question.text,
+
+      question.chapter,
+
+      question.subject,
+
+      question.type
+
+    ].join(" ").toLowerCase();
+
+    const matchesSearch =
+      !search ||
+      searchableText.includes(search);
+
+    return matchesSubject && matchesSearch;
+
+  });
+
+
+  document.getElementById("bankListCount")
+    .textContent =
+    filtered.length + " questions found";
+
+
+  container.innerHTML = "";
+
+
+  // Display a maximum of 100 matching records
+  // to keep the browser responsive.
+
+  filtered.slice(0, 100).forEach(question => {
+
+    const card =
+      document.createElement("div");
+
+    card.className = "card";
+
+
+    const title =
+      document.createElement("h3");
+
+    title.textContent =
+      question.subject +
+      " | " +
+      question.chapter +
+      " | " +
+      question.type;
+
+
+    const statement =
+      document.createElement("div");
+
+    statement.textContent = question.text;
+
+
+    const deleteButton =
+      document.createElement("button");
+
+    deleteButton.className = "danger";
+
+    deleteButton.textContent =
+      "Delete Question";
+
+
+    deleteButton.onclick = async function () {
+
+      const confirmed = confirm(
+        "Delete this question permanently?"
+      );
+
+      if (!confirmed) return;
+
+      try {
+
+        await reqPromise(
+
+          store("questions", "readwrite")
+            .delete(question.id)
+
+        );
+
+        await refreshAll();
+
+        await loadBankList();
+
+      } catch (error) {
+
+        alert(
+          "Unable to delete question."
+        );
+
+      }
+
+    };
+
+
+    card.appendChild(title);
+
+    card.appendChild(statement);
+
+    card.appendChild(deleteButton);
+
+    container.appendChild(card);
+
+  });
+
+
+  if (filtered.length > 100) {
+
+    const note =
+      document.createElement("p");
+
+    note.className = "small";
+
+    note.textContent =
+      "Showing first 100 matches. " +
+      "Use search to narrow the results.";
+
+    container.appendChild(note);
+
+  }
+
+
+  if (window.MathJax &&
+      MathJax.typesetPromise) {
+
+    MathJax.typesetPromise();
+
+  }
+
+}
+
+
+// ==========================================
+// 7. ESCAPE HTML
+// ==========================================
+
+function escapeHTML(value) {
+
+  return String(value ?? "").replace(
+    /[&<>"']/g,
+
+    character => ({
+
+      "&": "&amp;",
+
+      "<": "&lt;",
+
+      ">": "&gt;",
+
+      '"': "&quot;",
+
+      "'": "&#39;"
+
+    })[character]
+
+  );
+
+}
+
+
+// ==========================================
+// 8. EXPORT QUESTION BANK
+// ==========================================
+
+async function exportBank() {
+
+  try {
+
+    const questions =
+      await allQuestions();
+
+    const subjects =
+      await allSubjects();
+
+    const exportData = {
+
+      version: 1,
+
+      exportedAt: new Date().toISOString(),
+
+      subjects: subjects,
+
+      questions: questions.map(question => {
+
+        return {
+
+          ...question,
+
+          // Binary images are not exported in JSON.
+          imageBlob: null,
+
+          imageNote: question.imageBlob
+            ? "Image excluded from JSON export"
+            : null
+
+        };
+
+      })
+
+    };
+
+
+    const blob = new Blob(
+
+      [
+        JSON.stringify(exportData, null, 2)
+      ],
+
+      {
+        type: "application/json"
+      }
+
+    );
+
+
+    const url =
+      URL.createObjectURL(blob);
+
+    const link =
+      document.createElement("a");
+
+    link.href = url;
+
+    link.download =
+      "gate_mechanical_question_bank.json";
+
+    link.click();
+
+    setTimeout(
+      () => URL.revokeObjectURL(url),
+      1000
+    );
+
+
+  } catch (error) {
+
+    alert(
+      "Unable to export question bank."
+    );
+
+  }
+
+}
+
+
+// ==========================================
+// 9. IMPORT QUESTION BANK
+// ==========================================
+
+async function importBank() {
+
+  const input =
+    document.getElementById("importFile");
+
+  const file = input.files[0];
+
+  if (!file) {
+
+    alert("Please select a JSON backup file.");
+
+    return;
+
+  }
+
+
+  try {
+
+    const data =
+      JSON.parse(await file.text());
+
+
+    if (!Array.isArray(data.questions)) {
+
+      alert(
+        "Invalid backup: questions array not found."
+      );
+
+      return;
+
+    }
+
+
+    let imported = 0;
+
+
+    // Import subjects
+
+    for (const subject of (data.subjects || [])) {
+
+      if (subject && subject.name) {
+
+        await reqPromise(
+
+          store("subjects", "readwrite")
+            .put({
+              name: subject.name
+            })
+
+        );
+
+      }
+
+    }
+
+
+    // Import questions
+
+    for (const original of data.questions) {
+
+      if (
+
+        !original ||
+
+        !original.subject ||
+
+        !original.chapter ||
+
+        !original.text ||
+
+        !original.answer
+
+      ) {
+
+        continue;
+
+      }
+
+
+      const question = {
+
+        ...original,
+
+        id:
+          "import_" +
+          Date.now() +
+          "_" +
+          Math.random().toString(36).slice(2),
+
+        imageBlob: null,
+
+        createdAt:
+          original.createdAt || Date.now()
+
+      };
+
+
+      await reqPromise(
+
+        store("questions", "readwrite")
+          .put(question)
+
+      );
+
+      imported++;
+
+    }
+
+
+    alert(
+      imported +
+      " questions imported successfully."
+    );
+
+
+    await refreshAll();
+
+    await loadBankList();
+
+    input.value = "";
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(
+      "Import failed. Please check the JSON file."
+    );
+
+  }
+
+}
+
+</script>
+
+
+<!-- ========================================== -->
+<!-- END OF PART 3 -->
+<!-- PART 4 START HERE -->
+<!-- ========================================== -->
+  <!-- ========================================== -->
+<!-- PART 4: DATABASE AND STORAGE -->
+<!-- ========================================== -->
+
+<script>
+
+/*
+=================================================
+GATE MECHANICAL ENGINEERING DATABASE
+=================================================
+
+Database name:
+GATE_Mechanical_QuestionBank
+
+Object stores:
+1. questions
+2. subjects
+3. settings
+
+This database stores questions locally in the browser.
+
+Important:
+Browser storage capacity depends on the device.
+Export regular backups to avoid data loss.
+*/
+
+
+// ==========================================
+// 1. GLOBAL VARIABLES
+// ==========================================
+
+let db = null;
+
+let subjects = [];
+
+let examQuestions = [];
+
+let currentIndex = 0;
+
+let timeLeft = 180 * 60;
+
+let timerInterval = null;
+
+let examActive = false;
+
+let examFinished = false;
+
+let examResponses = {};
+
+let examReview = {};
+
+let distribution = {};
+
+let latestResult = null;
+
+
+// ==========================================
+// 2. DEFAULT SUBJECTS
+// ==========================================
+
+const DEFAULT_SUBJECTS = [
+
+  "Engineering Mathematics",
+
+  "Engineering Mechanics",
+
+  "Strength of Materials",
+
+  "Theory of Machines",
+
+  "Machine Design",
+
+  "Fluid Mechanics",
+
+  "Thermodynamics",
+
+  "Heat Transfer",
+
+  "Manufacturing Engineering",
+
+  "Industrial Engineering"
+
+];
+
+
+// ==========================================
+// 3. CODE-BASED SAMPLE QUESTIONS
+// ==========================================
+
+/*
+Add your questions to this array if you want them
+to be included directly in the JavaScript code.
+
+Every question must have a unique ID.
+
+Supported types:
+MCQ, MSQ, NAT
+
+Example:
+subject: Engineering Mechanics
+chapter: Friction
+type: MCQ
+answer: A
+*/
+
+
+const CODE_QUESTIONS = [
+
+  {
+    id: "demo_mech_001",
+
+    subject: "Engineering Mechanics",
+
+    chapter: "Work and Energy",
+
+    type: "MCQ",
+
+    text:
+      "A particle of mass $2\\,kg$ moves at $3\\,m/s$. " +
+      "Its kinetic energy is:",
+
+    options: [
+
+      "$3\\,J$",
+
+      "$6\\,J$",
+
+      "$9\\,J$",
+
+      "$18\\,J$"
+
+    ],
+
+    answer: "C",
+
+    explanation:
+      "$KE=\\frac12 mv^2=\\frac12(2)(3^2)=9\\,J$."
+
+  },
+
+
+  {
+    id: "demo_mech_002",
+
+    subject: "Engineering Mechanics",
+
+    chapter: "Friction",
+
+    type: "MCQ",
+
+    text:
+      "The coefficient of friction is $0.25$. " +
+      "The angle of friction $\\phi$ satisfies:",
+
+    options: [
+
+      "$\\tan\\phi=0.25$",
+
+      "$\\sin\\phi=0.25$",
+
+      "$\\cos\\phi=0.25$",
+
+      "$\\phi=0.25^\\circ$"
+
+    ],
+
+    answer: "A",
+
+    explanation:
+      "The coefficient of friction is $\\mu=\\tan\\phi$."
+
+  },
+
+
+  {
+    id: "demo_som_001",
+
+    subject: "Strength of Materials",
+
+    chapter: "Axial Stress",
+
+    type: "MCQ",
+
+    text:
+      "A bar carries axial load $P$. " +
+      "If its cross-sectional area is $A$, " +
+      "the normal stress is:",
+
+    options: [
+
+      "$PA$",
+
+      "$P/A$",
+
+      "$A/P$",
+
+      "$P+A$"
+
+    ],
+
+    answer: "B",
+
+    explanation:
+      "Normal stress is load divided by cross-sectional area."
+
+  },
+
+
+  {
+    id: "demo_thermo_001",
+
+    subject: "Thermodynamics",
+
+    chapter: "First Law",
+
+    type: "NAT",
+
+    text:
+      "A closed system receives $500\\,kJ$ heat and " +
+      "performs $200\\,kJ$ work. " +
+      "Find $\\Delta U$ in kJ.",
+
+    options: [],
+
+    answer: "300",
+
+    explanation:
+      "For a closed system, $\\Delta U=Q-W=500-200=300\\,kJ$."
+
+  }
+
+];
+
+
+// ==========================================
+// 4. OPEN INDEXEDDB
+// ==========================================
+
+function openDB() {
+
+  return new Promise((resolve, reject) => {
+
+    const request = indexedDB.open(
+      "GATE_Mechanical_QuestionBank",
+      1
+    );
+
+
+    request.onupgradeneeded = function () {
+
+      const database = request.result;
+
+
+      // QUESTIONS STORE
+
+      if (!database.objectStoreNames.contains("questions")) {
+
+        const questionStore =
+          database.createObjectStore(
+
+            "questions",
+
+            {
+              keyPath: "id"
+            }
+
+          );
+
+        questionStore.createIndex(
+          "subject",
+          "subject",
+          {
+            unique: false
+          }
+        );
+
+        questionStore.createIndex(
+          "chapter",
+          "chapter",
+          {
+            unique: false
+          }
+        );
+
+      }
+
+
+      // SUBJECTS STORE
+
+      if (!database.objectStoreNames.contains("subjects")) {
+
+        database.createObjectStore(
+
+          "subjects",
+
+          {
+            keyPath: "name"
+          }
+
+        );
+
+      }
+
+
+      // SETTINGS STORE
+
+      if (!database.objectStoreNames.contains("settings")) {
+
+        database.createObjectStore(
+
+          "settings",
+
+          {
+            keyPath: "id"
+          }
+
+        );
+
+      }
+
+    };
+
+
+    request.onsuccess = function () {
+
+      resolve(request.result);
+
+    };
+
+
+    request.onerror = function () {
+
+      reject(request.error);
+
+    };
+
+
+  });
+
+}
+
+
+// ==========================================
+// 5. DATABASE STORE HELPER
+// ==========================================
+
+function store(name, mode = "readonly") {
+
+  if (!db) {
+
+    throw new Error(
+      "Database is not initialized."
+    );
+
+  }
+
+  return db
+    .transaction(name, mode)
+    .objectStore(name);
+
+}
+
+
+// ==========================================
+// 6. PROMISE HELPER
+// ==========================================
+
+function reqPromise(request) {
+
+  return new Promise((resolve, reject) => {
+
+    request.onsuccess = function () {
+
+      resolve(request.result);
+
+    };
+
+    request.onerror = function () {
+
+      reject(request.error);
+
+    };
+
+  });
+
+}
+
+
+// ==========================================
+// 7. GET ALL QUESTIONS
+// ==========================================
+
+async function allQuestions() {
+
+  return reqPromise(
+
+    store("questions").getAll()
+
+  );
+
+}
+
+
+// ==========================================
+// 8. GET ALL SUBJECTS
+// ==========================================
+
+async function allSubjects() {
+
+  return reqPromise(
+
+    store("subjects").getAll()
+
+  );
+
+}
+
+
+// ==========================================
+// 9. SAVE EXAM SETTINGS
+// ==========================================
+
+async function saveSetting(id, value) {
+
+  return reqPromise(
+
+    store("settings", "readwrite")
+      .put({
+
+        id: id,
+
+        value: value
+
+      })
+
+  );
+
+}
+
+
+// ==========================================
+// 10. GET EXAM SETTINGS
+// ==========================================
+
+async function getSetting(id) {
+
+  return reqPromise(
+
+    store("settings").get(id)
+
+  );
+
+}
+
+
+// ==========================================
+// 11. POPULATE SUBJECT DROPDOWNS
+// ==========================================
+
+function populateSubjectDropdowns() {
+
+  const questionSubject =
+    document.getElementById("qSubject");
+
+  const filterSubject =
+    document.getElementById("filterSubject");
+
+
+  if (!questionSubject || !filterSubject) {
+
+    return;
+
+  }
+
+
+  const oldQuestionSubject =
+    questionSubject.value;
+
+  const oldFilterSubject =
+    filterSubject.value;
+
+
+  questionSubject.innerHTML = "";
+
+  filterSubject.innerHTML = "";
+
+
+  questionSubject.add(
+
+    new Option(
+      "Select Subject",
+      ""
+    )
+
+  );
+
+
+  filterSubject.add(
+
+    new Option(
+      "All Subjects",
+      ""
+    )
+
+  );
+
+
+  subjects.forEach(subject => {
+
+    questionSubject.add(
+
+      new Option(
+        subject,
+        subject
+      )
+
+    );
+
+
+    filterSubject.add(
+
+      new Option(
+        subject,
+        subject
+      )
+
+    );
+
+  });
+
+
+  if (subjects.includes(oldQuestionSubject)) {
+
+    questionSubject.value = oldQuestionSubject;
+
+  }
+
+
+  if (subjects.includes(oldFilterSubject)) {
+
+    filterSubject.value = oldFilterSubject;
+
+  }
+
+}
+
+
+// ==========================================
+// 12. REFRESH DASHBOARD AND SUBJECTS
+// ==========================================
+
+async function refreshAll() {
+
+  if (!db) return;
+
+
+  const subjectRecords =
+    await allSubjects();
+
+
+  subjects = subjectRecords
+
+    .map(subject => subject.name)
+
+    .sort();
+
+
+  const questions =
+    await allQuestions();
+
+
+  // Dashboard subject count
+
+  const subjectCountElement =
+    document.getElementById("subjectCount");
+
+  if (subjectCountElement) {
+
+    subjectCountElement.textContent =
+      subjects.length;
+
+  }
+
+
+  // Dashboard question count
+
+  const questionCountElement =
+    document.getElementById("questionCount");
+
+  if (questionCountElement) {
+
+    questionCountElement.textContent =
+      questions.length;
+
+  }
+
+
+  // Refresh dropdowns
+
+  populateSubjectDropdowns();
+
+
+  // Refresh subject list if available
+
+  if (
+    typeof renderSubjects === "function" &&
+    document.getElementById("subjectList")
+  ) {
+
+    await renderSubjects();
+
+  }
+
+
+  // Refresh question bank if available
+
+  if (
+    typeof loadBankList === "function" &&
+    document.getElementById("bankList")
+  ) {
+
+    await loadBankList();
+
+  }
+
+
+  // Refresh exam settings
+
+  if (
+    typeof renderDistribution === "function" &&
+    document.getElementById("distribution")
+  ) {
+
+    renderDistribution();
+
+  }
+
+
+  // Refresh results
+
+  if (
+    typeof renderResults === "function" &&
+    document.getElementById("resultContent")
+  ) {
+
+    renderResults();
+
+  }
+
+}
+
+
+// ==========================================
+// 13. INITIALIZE DEFAULT SUBJECTS
+// ==========================================
+
+async function initializeDefaultSubjects() {
+
+  for (const name of DEFAULT_SUBJECTS) {
+
+    const existing = await reqPromise(
+
+      store("subjects").get(name)
+
+    );
+
+
+    if (!existing) {
+
+      await reqPromise(
+
+        store("subjects", "readwrite")
+          .put({
+
+            name: name
+
+          })
+
+      );
+
+    }
+
+  }
+
+}
+
+
+// ==========================================
+// 14. SAVE CODE QUESTIONS
+// ==========================================
+
+async function initializeCodeQuestions() {
+
+  for (const question of CODE_QUESTIONS) {
+
+    const existing = await reqPromise(
+
+      store("questions").get(question.id)
+
+    );
+
+
+    if (existing) {
+
+      // Do not overwrite an existing question.
+
+      continue;
+
+    }
+
+
+    const record = {
+
+      ...question,
+
+      imageBlob: null,
+
+      createdAt: Date.now()
+
+    };
+
+
+    await reqPromise(
+
+      store("questions", "readwrite")
+        .put(record)
+
+    );
+
+  }
+
+}
+
+
+// ==========================================
+// 15. INITIALIZE DATABASE
+// ==========================================
+
+async function init() {
+
+  try {
+
+    if (!window.indexedDB) {
+
+      throw new Error(
+        "IndexedDB is not supported by this browser."
+      );
+
+    }
+
+
+    db = await openDB();
+
+
+    // Initialize default subjects
+
+    await initializeDefaultSubjects();
+
+
+    // Initialize sample questions
+
+    await initializeCodeQuestions();
+
+
+    // Load saved distribution
+
+    const savedDistribution =
+      await getSetting("distribution");
+
+
+    if (savedDistribution) {
+
+      distribution =
+        savedDistribution.value;
+
+    }
+
+
+    // Load latest result
+
+    const savedResult =
+      await getSetting("latestResult");
+
+
+    if (savedResult) {
+
+      latestResult =
+        savedResult.value;
+
+    }
+
+
+    // Refresh portal
+
+    await refreshAll();
+
+
+    console.log(
+      "GATE Mechanical database initialized successfully."
+    );
+
+
+  } catch (error) {
+
+    console.error(
+      "Database initialization failed:",
+      error
+    );
+
+
+    alert(
+
+      "Unable to initialize the question bank database.\n\n" +
+
+      error.message +
+
+      "\n\nPlease check your browser settings."
+
+    );
+
+  }
+
+}
+
+
+// ==========================================
+// 16. DATABASE STARTUP
+// ==========================================
+
+/*
+IMPORTANT:
+
+Part 1, Part 2, Part 3 and Part 4 are being
+combined into one HTML file.
+
+Do not add another init() call.
+
+The existing init() function in this part
+starts the database initialization.
+*/
+
+init();
+
+
+</script>
+
+
+<!-- ========================================== -->
+<!-- END OF PART 4 -->
+<!-- PART 5 START HERE -->
+<!-- ========================================== -->
+  <!-- ========================================== -->
+<!-- PART 5: EXAM SETTINGS INTERFACE -->
+<!-- ========================================== -->
+
+<section id="settings" class="page hidden">
+
+  <div class="card">
+
+    <h2>GATE Exam Configuration</h2>
+
+    <p>
+      ప్రతి subject నుంచి ఎన్ని 1-mark, 2-mark questions
+      రావాలో ఇక్కడ నిర్ణయించవచ్చు.
+    </p>
+
+    <div class="grid">
+
+      <div>
+        <label>Total Questions</label>
+        <input type="number" value="65" disabled>
+      </div>
+
+      <div>
+        <label>Exam Duration (Minutes)</label>
+        <input type="number" value="180" disabled>
+      </div>
+
+    </div>
+
+    <div class="card">
+
+      <h3>Distribution Summary</h3>
+
+      <p>
+        Total Questions:
+        <strong id="settingQuestionTotal">0</strong>
+        / 65
+      </p>
+
+      <p>
+        Total Marks:
+        <strong id="settingMarksTotal">0</strong>
+      </p>
+
+      <p>
+        One-Mark Questions:
+        <strong id="settingOneTotal">0</strong>
+      </p>
+
+      <p>
+        Two-Mark Questions:
+        <strong id="settingTwoTotal">0</strong>
+      </p>
+
+      <div id="distributionStatus"></div>
+
+    </div>
+
+    <h3>Subject-wise Question Distribution</h3>
+
+    <p class="small">
+      ప్రతి subject కి questions సంఖ్యను మార్చినప్పుడు
+      total questions, total marks automatic గా update అవుతాయి.
+    </p>
+
+    <div id="distribution"></div>
+
+    <div class="actions">
+
+      <button
+        onclick="saveSettings()">
+        Save Exam Settings
+      </button>
+
+      <button
+        class="secondary"
+        onclick="setDefaultDistribution()">
+        Default Distribution
+      </button>
+
+      <button
+        class="secondary"
+        onclick="renderDistribution()">
+        Reload Settings
+      </button>
+
+    </div>
+
+    <div id="settingsMessage"></div>
+
+  </div>
+
+</section>
+
+
+<!-- ========================================== -->
+<!-- PART 5: DISTRIBUTION JAVASCRIPT -->
+<!-- ========================================== -->
+
+<script>
+
+// ==========================================
+// 1. RENDER SUBJECT-WISE DISTRIBUTION
+// ==========================================
+
+function renderDistribution() {
+
+  const container =
+    document.getElementById("distribution");
+
+  if (!container || !db) return;
+
+  container.innerHTML = "";
+
+
+  subjects.forEach(subject => {
+
+    const saved =
+      distribution[subject] || {
+        one: 0,
+        two: 0
+      };
+
+
+    const card =
+      document.createElement("div");
+
+    card.className = "card";
+
+
+    const heading =
+      document.createElement("h3");
+
+    heading.textContent = subject;
+
+
+    const grid =
+      document.createElement("div");
+
+    grid.className = "grid";
+
+
+    // One-mark input
+
+    const oneWrapper =
+      document.createElement("div");
+
+    const oneLabel =
+      document.createElement("label");
+
+    oneLabel.textContent =
+      "1-Mark Questions";
+
+
+    const oneInput =
+      document.createElement("input");
+
+    oneInput.type = "number";
+
+    oneInput.min = "0";
+
+    oneInput.max = "65";
+
+    oneInput.step = "1";
+
+    oneInput.id =
+      "one_" + encodeURIComponent(subject);
+
+    oneInput.value =
+      saved.one || 0;
+
+
+    // Two-mark input
+
+    const twoWrapper =
+      document.createElement("div");
+
+    const twoLabel =
+      document.createElement("label");
+
+    twoLabel.textContent =
+      "2-Mark Questions";
+
+
+    const twoInput =
+      document.createElement("input");
+
+    twoInput.type = "number";
+
+    twoInput.min = "0";
+
+    twoInput.max = "65";
+
+    twoInput.step = "1";
+
+    twoInput.id =
+      "two_" + encodeURIComponent(subject);
+
+    twoInput.value =
+      saved.two || 0;
+
+
+    // Update summary on changes
+
+    oneInput.addEventListener(
+      "input",
+      updateDistributionSummary
+    );
+
+    twoInput.addEventListener(
+      "input",
+      updateDistributionSummary
+    );
+
+
+    oneWrapper.appendChild(oneLabel);
+
+    oneWrapper.appendChild(oneInput);
+
+
+    twoWrapper.appendChild(twoLabel);
+
+    twoWrapper.appendChild(twoInput);
+
+
+    grid.appendChild(oneWrapper);
+
+    grid.appendChild(twoWrapper);
+
+
+    card.appendChild(heading);
+
+    card.appendChild(grid);
+
+
+    container.appendChild(card);
+
+  });
+
+
+  updateDistributionSummary();
+
+}
+
+
+// ==========================================
+// 2. READ DISTRIBUTION INPUTS
+// ==========================================
+
+function readDistributionInputs() {
+
+  const result = {};
+
+
+  subjects.forEach(subject => {
+
+    const oneElement =
+      document.getElementById(
+        "one_" + encodeURIComponent(subject)
+      );
+
+    const twoElement =
+      document.getElementById(
+        "two_" + encodeURIComponent(subject)
+      );
+
+
+    const one =
+      oneElement
+        ? Number(oneElement.value)
+        : 0;
+
+    const two =
+      twoElement
+        ? Number(twoElement.value)
+        : 0;
+
+
+    result[subject] = {
+
+      one: one,
+
+      two: two
+
+    };
+
+  });
+
+
+  return result;
+
+}
+
+
+// ==========================================
+// 3. VALIDATE DISTRIBUTION
+// ==========================================
+
+function validateDistribution(data) {
+
+  let questionTotal = 0;
+
+  let marksTotal = 0;
+
+  let oneTotal = 0;
+
+  let twoTotal = 0;
+
+
+  for (const subject of subjects) {
+
+    const item =
+      data[subject] || {
+        one: 0,
+        two: 0
+      };
+
+
+    if (
+
+      !Number.isInteger(item.one) ||
+
+      !Number.isInteger(item.two) ||
+
+      item.one < 0 ||
+
+      item.two < 0
+
+    ) {
+
+      return {
+
+        valid: false,
+
+        message:
+          subject +
+          ": Enter non-negative whole numbers."
+
+      };
+
+    }
+
+
+    questionTotal +=
+      item.one + item.two;
+
+
+    marksTotal +=
+      item.one + 2 * item.two;
+
+
+    oneTotal += item.one;
+
+    twoTotal += item.two;
+
+  }
+
+
+  return {
+
+    valid: true,
+
+    questionTotal,
+
+    marksTotal,
+
+    oneTotal,
+
+    twoTotal
+
+  };
+
+}
+
+
+// ==========================================
+// 4. UPDATE DISTRIBUTION SUMMARY
+// ==========================================
+
+function updateDistributionSummary() {
+
+  const data =
+    readDistributionInputs();
+
+
+  const result =
+    validateDistribution(data);
+
+
+  if (!result.valid) {
+
+    document.getElementById(
+      "distributionStatus"
+    ).textContent = result.message;
+
+    return;
+
+  }
+
+
+  document.getElementById(
+    "settingQuestionTotal"
+  ).textContent =
+    result.questionTotal;
+
+
+  document.getElementById(
+    "settingMarksTotal"
+  ).textContent =
+    result.marksTotal;
+
+
+  document.getElementById(
+    "settingOneTotal"
+  ).textContent =
+    result.oneTotal;
+
+
+  document.getElementById(
+    "settingTwoTotal"
+  ).textContent =
+    result.twoTotal;
+
+
+  const status =
+    document.getElementById(
+      "distributionStatus"
+    );
+
+
+  if (result.questionTotal === 65) {
+
+    status.textContent =
+      "Question count is valid.";
+
+    status.style.color = "green";
+
+  } else {
+
+    status.textContent =
+      "Total must be exactly 65 questions. Current: " +
+      result.questionTotal;
+
+    status.style.color = "red";
+
+  }
+
+}
+
+
+// ==========================================
+// 5. SAVE EXAM SETTINGS
+// ==========================================
+
+async function saveSettings() {
+
+  if (!db) {
+
+    alert("Database is not ready.");
+
+    return;
+
+  }
+
+
+  const data =
+    readDistributionInputs();
+
+
+  const result =
+    validateDistribution(data);
+
+
+  if (!result.valid) {
+
+    alert(result.message);
+
+    return;
+
+  }
+
+
+  if (result.questionTotal !== 65) {
+
+    alert(
+
+      "Total questions must equal 65.\n\n" +
+
+      "Current total: " +
+
+      result.questionTotal
+
+    );
+
+    return;
+
+  }
+
+
+  // Warn if total marks are not 100.
+
+  if (result.marksTotal !== 100) {
+
+    const proceed = confirm(
+
+      "Your distribution contains " +
+
+      result.questionTotal +
+
+      " questions but totals " +
+
+      result.marksTotal +
+
+      " marks.\n\n" +
+
+      "A 65-question paper can have a different total " +
+
+      "depending on your 1-mark and 2-mark distribution.\n\n" +
+
+      "Do you want to save these settings?"
+
+    );
+
+
+    if (!proceed) return;
+
+  }
+
+
+  // Check that every subject has enough questions.
+
+  const allBankQuestions =
+    await allQuestions();
+
+
+  for (const subject of subjects) {
+
+    const requested =
+      data[subject].one +
+      data[subject].two;
+
+
+    const available =
+      allBankQuestions.filter(
+        question => question.subject === subject
+      ).length;
+
+
+    if (requested > available) {
+
+      alert(
+
+        "Insufficient questions for: " +
+
+        subject +
+
+        "\n\nRequired: " +
+
+        requested +
+
+        "\nAvailable: " +
+
+        available +
+
+        "\n\nAdd more questions to this subject's bank."
+
+      );
+
+      return;
+
+    }
+
+  }
+
+
+  distribution = data;
+
+
+  await saveSetting(
+    "distribution",
+    distribution
+  );
+
+
+  const message =
+    document.getElementById(
+      "settingsMessage"
+    );
+
+
+  message.textContent =
+
+    "Exam settings saved successfully. " +
+
+    result.questionTotal +
+
+    " questions, " +
+
+    result.marksTotal +
+
+    " marks.";
+
+
+  message.style.color = "green";
+
+}
+
+
+// ==========================================
+// 6. SET DEFAULT DISTRIBUTION
+// ==========================================
+
+async function setDefaultDistribution() {
+
+  if (!subjects.length) {
+
+    alert("Please add subjects first.");
+
+    return;
+
+  }
+
+
+  /*
+  Default distribution:
+
+  25 one-mark questions
+  40 two-mark questions
+  65 questions total
+  105 marks total
+
+  This is a sample configuration, not a
+  100-mark paper.
+  */
+
+
+  const data = {};
+
+
+  subjects.forEach(subject => {
+
+    data[subject] = {
+
+      one: 0,
+
+      two: 0
+
+    };
+
+  });
+
+
+  let oneRemaining = 25;
+
+  let twoRemaining = 40;
+
+
+  for (const subject of subjects) {
+
+    const oneCount = Math.min(
+
+      oneRemaining,
+
+      Math.ceil(25 / subjects.length)
+
+    );
+
+
+    const twoCount = Math.min(
+
+      twoRemaining,
+
+      Math.ceil(40 / subjects.length)
+
+    );
+
+
+    data[subject] = {
+
+      one: oneCount,
+
+      two: twoCount
+
+    };
+
+
+    oneRemaining -= oneCount;
+
+    twoRemaining -= twoCount;
+
+  }
+
+
+  // Assign any remaining questions.
+
+  if (oneRemaining > 0) {
+
+    data[subjects[0]].one +=
+      oneRemaining;
+
+  }
+
+
+  if (twoRemaining > 0) {
+
+    data[subjects[0]].two +=
+      twoRemaining;
+
+  }
+
+
+  distribution = data;
+
+
+  renderDistribution();
+
+
+  document.getElementById(
+    "settingsMessage"
+  ).textContent =
+
+    "Default distribution loaded. " +
+
+    "Review and save your settings.";
+
+}
+
+
+// ==========================================
+// 7. LOAD SAVED SETTINGS
+// ==========================================
+
+async function loadSavedSettings() {
+
+  if (!db) return;
+
+
+  const saved =
+    await getSetting("distribution");
+
+
+  if (saved && saved.value) {
+
+    distribution =
+      saved.value;
+
+  }
+
+
+  renderDistribution();
+
+}
+
+</script>
+
+
+<!-- ========================================== -->
+<!-- END OF PART 5 -->
+<!-- PART 6 START HERE -->
+<!-- ========================================== -->
+  <!-- ========================================== -->
+<!-- PART 6: RANDOM QUESTION GENERATION -->
+<!-- ========================================== -->
+
+<script>
+
+// ==========================================
+// 1. RANDOM SHUFFLE
+// ==========================================
+
+function shuffle(array) {
+
+  const result = [...array];
+
+  for (let i = result.length - 1; i > 0; i--) {
+
+    const j = Math.floor(
+      Math.random() * (i + 1)
+    );
+
+    [result[i], result[j]] =
+      [result[j], result[i]];
+
+  }
+
+  return result;
+
+}
+
+
+// ==========================================
+// 2. GET SAVED DISTRIBUTION
+// ==========================================
+
+async function getExamDistribution() {
+
+  const saved =
+    await getSetting("distribution");
+
+  if (saved && saved.value) {
+
+    distribution = saved.value;
+
+  }
+
+  return distribution;
+
+}
+
+
+// ==========================================
+// 3. VALIDATE EXAM DISTRIBUTION
+// ==========================================
+
+function validateExamDistribution(data) {
+
+  let totalQuestions = 0;
+
+  let totalMarks = 0;
+
+
+  for (const subject of subjects) {
+
+    const item = data[subject] || {
+      one: 0,
+      two: 0
+    };
+
+
+    if (
+
+      !Number.isInteger(item.one) ||
+
+      !Number.isInteger(item.two) ||
+
+      item.one < 0 ||
+
+      item.two < 0
+
+    ) {
+
+      return {
+
+        valid: false,
+
+        message:
+          "Invalid question count for " +
+          subject
+
+      };
+
+    }
+
+
+    totalQuestions +=
+      item.one + item.two;
+
+
+    totalMarks +=
+      item.one + 2 * item.two;
+
+  }
+
+
+  if (totalQuestions !== 65) {
+
+    return {
+
+      valid: false,
+
+      message:
+        "Exam must contain exactly 65 questions. " +
+        "Current count: " + totalQuestions
+
+    };
+
+  }
+
+
+  return {
+
+    valid: true,
+
+    totalQuestions,
+
+    totalMarks
+
+  };
+
+}
+
+
+// ==========================================
+// 4. GENERATE RANDOM EXAM QUESTIONS
+// ==========================================
+
+async function generateExamQuestions() {
+
+  if (!db) {
+
+    throw new Error(
+      "Question Bank database is not ready."
+    );
+
+  }
+
+
+  // Load saved distribution.
+
+  const data =
+    await getExamDistribution();
+
+
+  // Validate distribution.
+
+  const validation =
+    validateExamDistribution(data);
+
+
+  if (!validation.valid) {
+
+    throw new Error(
+      validation.message
+    );
+
+  }
+
+
+  // Read all questions from database.
+
+  const bank =
+    await allQuestions();
+
+
+  const selectedQuestions = [];
+
+
+  // Select questions subject by subject.
+
+  for (const subject of subjects) {
+
+    const subjectDistribution =
+      data[subject] || {
+        one: 0,
+        two: 0
+      };
+
+
+    const oneMarkCount =
+      subjectDistribution.one;
+
+
+    const twoMarkCount =
+      subjectDistribution.two;
+
+
+    const requiredCount =
+      oneMarkCount + twoMarkCount;
+
+
+    if (requiredCount === 0) {
+
+      continue;
+
+    }
+
+
+    // Find all questions belonging to this subject.
+
+    const subjectQuestions =
+      bank.filter(question =>
+
+        question.subject === subject
+
+      );
+
+
+    // Verify that sufficient questions exist.
+
+    if (subjectQuestions.length < requiredCount) {
+
+      throw new Error(
+
+        "Insufficient questions in " +
+
+        subject +
+
+        ". Required: " +
+
+        requiredCount +
+
+        ", Available: " +
+
+        subjectQuestions.length
+
+      );
+
+    }
+
+
+    // Randomly shuffle the subject question bank.
+
+    const shuffledSubjectQuestions =
+      shuffle(subjectQuestions);
+
+
+    // Select only the required number.
+
+    const selected =
+      shuffledSubjectQuestions.slice(
+        0,
+        requiredCount
+      );
+
+
+    /*
+    Assign marks randomly among selected questions.
+
+    The exact number of 1-mark and 2-mark questions
+    remains equal to the configured distribution.
+    */
+
+
+    const marksArray = [
+
+      ...Array(oneMarkCount).fill(1),
+
+      ...Array(twoMarkCount).fill(2)
+
+    ];
+
+
+    const randomizedMarks =
+      shuffle(marksArray);
+
+
+    selected.forEach((question, index) => {
+
+      selectedQuestions.push({
+
+        ...question,
+
+        marks: randomizedMarks[index]
+
+      });
+
+    });
+
+  }
+
+
+  // Ensure exactly 65 questions are selected.
+
+  if (selectedQuestions.length !== 65) {
+
+    throw new Error(
+
+      "Question generation failed. Generated " +
+
+      selectedQuestions.length +
+
+      " questions instead of 65."
+
+    );
+
+  }
+
+
+  // Randomize the final question order.
+
+  return shuffle(selectedQuestions);
+
+}
+
+
+// ==========================================
+// 5. START EXAM
+// ==========================================
+
+async function startExam() {
+
+  if (examActive) {
+
+    alert(
+      "An examination is already running."
+    );
+
+    return;
+
+  }
+
+
+  if (examFinished) {
+
+    const confirmed = confirm(
+
+      "Start a new exam?\n\n" +
+
+      "The previous result will remain saved " +
+
+      "until the next exam is submitted."
+
+    );
+
+
+    if (!confirmed) return;
+
+  }
+
+
+  try {
+
+    // Generate a new random question set.
+
+    examQuestions =
+      await generateExamQuestions();
+
+
+    // Reset exam state.
+
+    currentIndex = 0;
+
+    examResponses = {};
+
+    examReview = {};
+
+
+    // Set exam duration to 180 minutes.
+
+    timeLeft = 180 * 60;
+
+
+    examActive = true;
+
+    examFinished = false;
+
+
+    // Display the exam interface.
+
+    showPage("exam");
+
+
+    // Render the first question.
+
+    renderQuestion();
+
+
+    // Start the countdown.
+
+    startTimer();
+
+
+  } catch (error) {
+
+    console.error(error);
+
+
+    alert(
+
+      "Unable to start the exam.\n\n" +
+
+      error.message +
+
+      "\n\nCheck Exam Settings and Question Bank."
+
+    );
+
+  }
+
+}
+
+
+// ==========================================
+// 6. EXAM GENERATION SUMMARY
+// ==========================================
+
+async function showExamGenerationSummary() {
+
+  const data =
+    await getExamDistribution();
+
+
+  const validation =
+    validateExamDistribution(data);
+
+
+  if (!validation.valid) {
+
+    alert(validation.message);
+
+    return;
+
+  }
+
+
+  const bank =
+    await allQuestions();
+
+
+  let summary = "";
+
+  let allAvailable = true;
+
+
+  for (const subject of subjects) {
+
+    const settings =
+      data[subject] || {
+        one: 0,
+        two: 0
+      };
+
+
+    const required =
+      settings.one + settings.two;
+
+
+    if (required === 0) {
+
+      continue;
+
+    }
+
+
+    const available =
+      bank.filter(question =>
+
+        question.subject === subject
+
+      ).length;
+
+
+    summary +=
+
+      subject +
+
+      ": Required " +
+
+      required +
+
+      ", Available " +
+
+      available +
+
+      "\n";
+
+
+    if (available < required) {
+
+      allAvailable = false;
+
+    }
+
+  }
+
+
+  alert(
+
+    "EXAM CONFIGURATION\n\n" +
+
+    "Questions: " +
+
+    validation.totalQuestions +
+
+    "\nTotal Marks: " +
+
+    validation.totalMarks +
+
+    "\nDuration: 180 minutes\n\n" +
+
+    summary +
+
+    "\n" +
+
+    (
+
+      allAvailable
+
+        ? "Question bank is ready."
+
+        : "Some subjects need more questions."
+
+    )
+
+  );
+
+}
+
+</script>
+
+
+<!-- ========================================== -->
+<!-- END OF PART 6 -->
+<!-- PART 7 START HERE -->
+<!-- ========================================== -->
+  <!-- ========================================== -->
+<!-- PART 7: EXAM INTERFACE -->
+<!-- ========================================== -->
+
+<section id="exam" class="page hidden">
+
+  <!-- TIMER DISPLAY -->
+
+  <div id="timer">
+    03:00:00
+  </div>
+
+  <div class="exam-layout">
+
+    <!-- QUESTION AREA -->
+
+    <div class="question-box">
+
+      <div>
+
+        <span id="qNumber" class="badge">
+          Question 1 / 65
+        </span>
+
+        <span id="qSubjectBadge" class="badge"></span>
+
+        <span id="qChapterBadge" class="badge"></span>
+
+        <span id="qMarksBadge" class="badge"></span>
+
+      </div>
+
+      <hr>
+
+      <!-- QUESTION TEXT -->
+
+      <div id="questionText"></div>
+
+      <!-- QUESTION IMAGE -->
+
+      <img
+        id="questionImage"
+        class="hidden"
+        alt="Question image"
+      >
+
+      <!-- MCQ / MSQ OPTIONS -->
+
+      <div id="examOptions"></div>
+
+      <!-- NAT ANSWER -->
+
+      <div id="natArea" class="hidden">
+
+        <label for="natAnswer">
+          Enter Numerical Answer
+        </label>
+
+        <input
+          type="number"
+          id="natAnswer"
+          step="any"
+          placeholder="Enter your answer"
+        >
+
+      </div>
+
+      <!-- NAVIGATION BUTTONS -->
+
+      <div class="actions">
+
+        <button
+          class="secondary"
+          onclick="previousQuestion()">
+          Previous
+        </button>
+
+        <button
+          class="secondary"
+          onclick="clearResponse()">
+          Clear Response
+        </button>
+
+        <button
+          onclick="markReview()">
+          Mark for Review
+        </button>
+
+        <button
+          class="success"
+          onclick="saveAndNext()">
+          Save & Next
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- QUESTION PALETTE -->
+
+    <aside class="card">
+
+      <h3>Question Palette</h3>
+
+      <div class="legend">
+
+        <span style="color:#16a34a">
+          ■ Answered
+        </span>
+
+        <br>
+
+        <span style="color:#7c3aed">
+          ■ Marked for Review
+        </span>
+
+        <br>
+
+        <span style="color:#94a3b8">
+          ■ Not Answered
+        </span>
+
+        <br>
+
+        <span style="color:#f59e0b">
+          ■ Current Question
+        </span>
+
+      </div>
+
+      <div
+        id="palette"
+        class="palette">
+      </div>
+
+      <hr>
+
+      <p>
+        Answered:
+        <strong id="answeredCount">0</strong>
+      </p>
+
+      <p>
+        Unanswered:
+        <strong id="unansweredCount">65</strong>
+      </p>
+
+      <button
+        class="danger"
+        onclick="submitExam(false)">
+        Submit Exam
+      </button>
+
+    </aside>
+
+  </div>
+
+</section>
+
+
+<!-- ========================================== -->
+<!-- PART 7: EXAM INTERFACE JAVASCRIPT -->
+<!-- ========================================== -->
+
+<script>
+
+// ==========================================
+// 1. SAVE CURRENT RESPONSE
+// ==========================================
+
+function storeCurrentResponse() {
+
+  if (!examQuestions.length) return;
+
+  const question =
+    examQuestions[currentIndex];
+
+  if (!question) return;
+
+
+  // NAT numerical response
+
+  if (question.type === "NAT") {
+
+    const input =
+      document.getElementById("natAnswer");
+
+    if (input) {
+
+      examResponses[question.id] =
+        input.value.trim();
+
+    }
+
+    return;
+
+  }
+
+
+  // MCQ / MSQ response
+
+  const checked = [
+
+    ...document.querySelectorAll(
+      'input[name="answer"]:checked'
+    )
+
+  ];
+
+
+  if (question.type === "MSQ") {
+
+    examResponses[question.id] =
+
+      checked
+
+        .map(input => input.value)
+
+        .sort()
+
+        .join(",");
+
+  } else {
+
+    examResponses[question.id] =
+
+      checked.length
+
+        ? checked[0].value
+
+        : "";
+
+  }
+
+}
+
+
+// ==========================================
+// 2. CHECK WHETHER ANSWERED
+// ==========================================
+
+function isAnswered(question) {
+
+  const answer =
+    examResponses[question.id];
+
+  return (
+
+    answer !== undefined &&
+
+    String(answer).trim() !== ""
+
+  );
+
+}
+
+
+// ==========================================
+// 3. RENDER CURRENT QUESTION
+// ==========================================
+
+function renderQuestion() {
+
+  if (!examQuestions.length) return;
+
+
+  const question =
+    examQuestions[currentIndex];
+
+  if (!question) return;
+
+
+  // Question number
+
+  document.getElementById("qNumber")
+    .textContent =
+
+      "Question " +
+
+      (currentIndex + 1) +
+
+      " / " +
+
+      examQuestions.length;
+
+
+  // Subject
+
+  document.getElementById("qSubjectBadge")
+    .textContent = question.subject;
+
+
+  // Chapter
+
+  document.getElementById("qChapterBadge")
+    .textContent = question.chapter;
+
+
+  // Marks
+
+  document.getElementById("qMarksBadge")
+    .textContent = question.marks + " Mark(s)";
+
+
+  // Question statement
+
+  document.getElementById("questionText")
+    .textContent = question.text;
+
+
+  // Question image
+
+  const imageElement =
+    document.getElementById("questionImage");
+
+
+  if (imageElement.dataset.objectUrl) {
+
+    URL.revokeObjectURL(
+      imageElement.dataset.objectUrl
+    );
+
+    delete imageElement.dataset.objectUrl;
+
+  }
+
+
+  if (question.imageBlob) {
+
+    const imageURL =
+      URL.createObjectURL(question.imageBlob);
+
+    imageElement.src = imageURL;
+
+    imageElement.dataset.objectUrl =
+      imageURL;
+
+    imageElement.classList.remove("hidden");
+
+  } else {
+
+    imageElement.removeAttribute("src");
+
+    imageElement.classList.add("hidden");
+
+  }
+
+
+  // Question type
+
+  const optionsArea =
+    document.getElementById("examOptions");
+
+  const natArea =
+    document.getElementById("natArea");
+
+
+  optionsArea.innerHTML = "";
+
+
+  // NAT
+
+  if (question.type === "NAT") {
+
+    natArea.classList.remove("hidden");
+
+
+    document.getElementById("natAnswer")
+      .value =
+
+        examResponses[question.id] || "";
+
+
+  } else {
+
+    natArea.classList.add("hidden");
+
+
+    // MCQ / MSQ
+
+    question.options.forEach((option, index) => {
+
+      const letter =
+        "ABCD"[index];
+
+
+      const row =
+        document.createElement("div");
+
+      row.className = "option";
+
+
+      const input =
+        document.createElement("input");
+
+
+      input.type =
+
+        question.type === "MSQ"
+
+          ? "checkbox"
+
+          : "radio";
+
+
+      input.name = "answer";
+
+      input.value = letter;
+
+      input.id = "answer_" + letter;
+
+
+      const savedAnswer =
+
+        String(
+          examResponses[question.id] || ""
+        ).split(",");
+
+
+      input.checked =
+        savedAnswer.includes(letter);
+
+
+      input.addEventListener(
+        "change",
+        function () {
+
+          storeCurrentResponse();
+
+          updatePalette();
+
+        }
+      );
+
+
+      const label =
+        document.createElement("label");
+
+      label.htmlFor = input.id;
+
+
+      // Text content is kept safe.
+
+      label.textContent =
+        letter + ". " + option;
+
+
+      row.appendChild(input);
+
+      row.appendChild(label);
+
+
+      optionsArea.appendChild(row);
+
+    });
+
+  }
+
+
+  // Update palette
+
+  updatePalette();
+
+
+  // Render equations
+
+  if (
+
+    window.MathJax &&
+
+    MathJax.typesetPromise
+
+  ) {
+
+    MathJax.typesetPromise();
+
+  }
+
+}
+
+
+// ==========================================
+// 4. PREVIOUS QUESTION
+// ==========================================
+
+function previousQuestion() {
+
+  if (!examActive) return;
+
+
+  storeCurrentResponse();
+
+
+  if (currentIndex > 0) {
+
+    currentIndex--;
+
+  }
+
+
+  renderQuestion();
+
+}
+
+
+// ==========================================
+// 5. SAVE AND NEXT
+// ==========================================
+
+function saveAndNext() {
+
+  if (!examActive) return;
+
+
+  storeCurrentResponse();
+
+
+  if (
+    currentIndex <
+    examQuestions.length - 1
+  ) {
+
+    currentIndex++;
+
+  }
+
+
+  renderQuestion();
+
+}
+
+
+// ==========================================
+// 6. CLEAR RESPONSE
+// ==========================================
+
+function clearResponse() {
+
+  if (!examActive) return;
+
+
+  const question =
+    examQuestions[currentIndex];
+
+
+  examResponses[question.id] = "";
+
+
+  if (question.type === "NAT") {
+
+    document.getElementById("natAnswer")
+      .value = "";
+
+  } else {
+
+    document.querySelectorAll(
+      'input[name="answer"]'
+    ).forEach(input => {
+
+      input.checked = false;
+
+    });
+
+  }
+
+
+  updatePalette();
+
+}
+
+
+// ==========================================
+// 7. MARK FOR REVIEW
+// ==========================================
+
+function markReview() {
+
+  if (!examActive) return;
+
+
+  storeCurrentResponse();
+
+
+  const question =
+    examQuestions[currentIndex];
+
+
+  examReview[question.id] =
+
+    !examReview[question.id];
+
+
+  if (
+    currentIndex <
+    examQuestions.length - 1
+  ) {
+
+    currentIndex++;
+
+  }
+
+
+  renderQuestion();
+
+}
+
+
+// ==========================================
+// 8. QUESTION PALETTE
+// ==========================================
+
+function updatePalette() {
+
+  const palette =
+    document.getElementById("palette");
+
+
+  if (!palette) return;
+
+
+  palette.innerHTML = "";
+
+
+  examQuestions.forEach((question, index) => {
+
+    const button =
+      document.createElement("button");
+
+
+    button.textContent =
+      index + 1;
+
+
+    // Answered status
+
+    if (isAnswered(question)) {
+
+      button.classList.add("answered");
+
+    }
+
+
+    // Review status
+
+    if (examReview[question.id]) {
+
+      button.classList.add("review");
+
+    }
+
+
+    // Current question
+
+    if (index === currentIndex) {
+
+      button.classList.add("current");
+
+    }
+
+
+    // Direct navigation
+
+    button.onclick = function () {
+
+      goToQuestion(index);
+
+    };
+
+
+    palette.appendChild(button);
+
+  });
+
+
+  // Counters
+
+  const answered =
+
+    examQuestions.filter(
+
+      question => isAnswered(question)
+
+    ).length;
+
+
+  document.getElementById("answeredCount")
+    .textContent = answered;
+
+
+  document.getElementById("unansweredCount")
+    .textContent =
+
+      examQuestions.length - answered;
+
+}
+
+
+// ==========================================
+// 9. GO TO QUESTION
+// ==========================================
+
+function goToQuestion(index) {
+
+  if (!examActive) return;
+
+
+  if (
+
+    index < 0 ||
+
+    index >= examQuestions.length
+
+  ) {
+
+    return;
+
+  }
+
+
+  storeCurrentResponse();
+
+
+  currentIndex = index;
+
+
+  renderQuestion();
+
+}
+
+
+// ==========================================
+// 10. SAVE NAT RESPONSE
+// ==========================================
+
+document.addEventListener(
+  "input",
+  function (event) {
+
+    if (
+
+      event.target &&
+
+      event.target.id === "natAnswer" &&
+
+      examActive
+
+    ) {
+
+      storeCurrentResponse();
+
+      updatePalette();
+
+    }
+
+  }
+);
+
+</script>
+
+
+<!-- ========================================== -->
+<!-- END OF PART 7 -->
+<!-- PART 8 START HERE -->
+<!-- ========================================== -->
+  <!-- ========================================== -->
+<!-- PART 8: EXAM TIMER AND SUBMISSION -->
+<!-- ========================================== -->
+
+<script>
+
+// ==========================================
+// 1. TIMER DISPLAY
+// ==========================================
+
+function updateTimerDisplay() {
+
+  const timer =
+    document.getElementById("timer");
+
+  if (!timer) return;
+
+
+  const hours =
+    Math.floor(timeLeft / 3600);
+
+  const minutes =
+    Math.floor((timeLeft % 3600) / 60);
+
+  const seconds =
+    timeLeft % 60;
+
+
+  const format = value =>
+    String(value).padStart(2, "0");
+
+
+  timer.textContent =
+
+    format(hours) + ":" +
+
+    format(minutes) + ":" +
+
+    format(seconds);
+
+
+  // Warning when five minutes remain.
+
+  if (timeLeft <= 300) {
+
+    timer.style.background = "#fee2e2";
+
+    timer.style.color = "#b91c1c";
+
+    timer.style.borderColor = "#ef4444";
+
+  } else {
+
+    timer.style.background = "#fff7ed";
+
+    timer.style.color = "#9a3412";
+
+    timer.style.borderColor = "#fb923c";
+
+  }
+
+}
+
+
+// ==========================================
+// 2. START TIMER
+// ==========================================
+
+function startTimer() {
+
+  // Prevent duplicate timers.
+
+  clearInterval(timerInterval);
+
+
+  if (!examActive) return;
+
+
+  updateTimerDisplay();
+
+
+  timerInterval = setInterval(function () {
+
+    if (!examActive) {
+
+      clearInterval(timerInterval);
+
+      return;
+
+    }
+
+
+    timeLeft--;
+
+
+    updateTimerDisplay();
+
+
+    // Automatic submission when time expires.
+
+    if (timeLeft <= 0) {
+
+      timeLeft = 0;
+
+      updateTimerDisplay();
+
+
+      clearInterval(timerInterval);
+
+
+      submitExam(true);
+
+    }
+
+  }, 1000);
+
+}
+
+
+// ==========================================
+// 3. SUBMIT CONFIRMATION
+// ==========================================
+
+function confirmExamSubmission() {
+
+  if (!examActive || examFinished) {
+
+    return false;
+
+  }
+
+
+  const answered =
+
+    examQuestions.filter(
+
+      question => isAnswered(question)
+
+    ).length;
+
+
+  const unanswered =
+
+    examQuestions.length - answered;
+
+
+  const message =
+
+    "Are you sure you want to submit the exam?\n\n" +
+
+    "Total Questions: " +
+
+    examQuestions.length +
+
+    "\nAnswered: " +
+
+    answered +
+
+    "\nUnanswered: " +
+
+    unanswered +
+
+    "\n\nAfter submission, you cannot continue this exam.";
+
+
+  return confirm(message);
+
+}
+
+
+// ==========================================
+// 4. SUBMIT EXAM
+// ==========================================
+
+async function submitExam(auto = false) {
+
+  if (!examActive || examFinished) {
+
+    return;
+
+  }
+
+
+  // Ask for confirmation for manual submission.
+
+  if (!auto) {
+
+    if (!confirmExamSubmission()) {
+
+      return;
+
+    }
+
+  }
+
+
+  // Save the currently displayed answer.
+
+  storeCurrentResponse();
+
+
+  // Stop the exam immediately.
+
+  examActive = false;
+
+  examFinished = true;
+
+
+  // Stop the timer.
+
+  clearInterval(timerInterval);
+
+  timerInterval = null;
+
+
+  // Save timer display.
+
+  updateTimerDisplay();
+
+
+  // Prevent further navigation.
+
+  document.querySelectorAll(
+    "#exam button"
+  ).forEach(button => {
+
+    button.disabled = true;
+
+  });
+
+
+  /*
+  Part 9 will calculate:
+  - Correct answers
+  - Incorrect answers
+  - Unanswered questions
+  - Negative marking
+  - Subject-wise marks
+  - Final score
+  - Answer review
+  */
+
+
+  if (typeof calculateExamResult === "function") {
+
+    await calculateExamResult(auto);
+
+  } else {
+
+    alert(
+      "Exam submitted. Add Part 9 to display the results."
+    );
+
+  }
+
+}
+
+
+// ==========================================
+// 5. PREVENT TIMER DUPLICATION
+// ==========================================
+
+function stopExamTimer() {
+
+  if (timerInterval !== null) {
+
+    clearInterval(timerInterval);
+
+    timerInterval = null;
+
+  }
+
+}
+
+
+// ==========================================
+// 6. RESET TIMER FOR NEW EXAM
+// ==========================================
+
+function resetExamTimer() {
+
+  stopExamTimer();
+
+
+  timeLeft = 180 * 60;
+
+
+  updateTimerDisplay();
+
+}
+
+
+// ==========================================
+// END OF PART 8
+// PART 9 START HERE
+// ==========================================
+
+</script>
+<!-- ================= PART 9: RESULTS & ANSWER REVIEW ================= -->
+
+<section id="results" class="page hidden">
+
+    <div class="card">
+        <h2>📊 GATE Mechanical Engineering — Exam Result</h2>
+        <p id="resultMessage">Exam completed successfully.</p>
+
+        <div class="result-grid">
+
+            <div class="result-box">
+                <h3>Final Score</h3>
+                <p id="finalScore">0</p>
+                <small id="maxScore">Out of 100</small>
+            </div>
+
+            <div class="result-box">
+                <h3>Correct</h3>
+                <p id="correctCount">0</p>
+            </div>
+
+            <div class="result-box">
+                <h3>Wrong</h3>
+                <p id="wrongCount">0</p>
+            </div>
+
+            <div class="result-box">
+                <h3>Unanswered</h3>
+                <p id="unansweredCount">0</p>
+            </div>
+
+        </div>
+
+        <div class="result-actions">
+            <button onclick="showPage('dashboard')">
+                Dashboard
+            </button>
+
+            <button onclick="printResult()">
+                Print Result
+            </button>
+
+            <button onclick="showPage('bank')">
+                Question Bank
+            </button>
+        </div>
+    </div>
+
+
+    <!-- SUBJECT-WISE RESULT -->
+
+    <div class="card">
+        <h3>Subject-wise Performance</h3>
+
+        <div class="table-responsive">
+            <table class="result-table">
+                <thead>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Total Questions</th>
+                        <th>Correct</th>
+                        <th>Wrong</th>
+                        <th>Unanswered</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+
+                <tbody id="subjectResultBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <!-- QUESTION-WISE REVIEW -->
+
+    <div class="card">
+        <h3>Question-wise Answer Review</h3>
+
+        <div class="review-filters">
+            <label for="reviewFilter">Filter:</label>
+
+            <select id="reviewFilter" onchange="renderAnswerReview()">
+                <option value="all">All Questions</option>
+                <option value="correct">Correct Answers</option>
+                <option value="wrong">Wrong Answers</option>
+                <option value="unanswered">Unanswered</option>
+            </select>
+        </div>
+
+        <div id="answerReviewList"></div>
+    </div>
+
+</section>
+
+
+<style>
+/* ================= RESULTS DESIGN ================= */
+
+.result-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(120px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.result-box {
+    border: 1px solid #d0d7de;
+    border-radius: 12px;
+    padding: 18px 10px;
+    text-align: center;
+    background: #f8fafc;
+}
+
+.result-box h3 {
+    font-size: 15px;
+    margin: 0 0 10px;
+}
+
+.result-box p {
+    font-size: 27px;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.result-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.result-actions button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.result-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+}
+
+.result-table th,
+.result-table td {
+    border: 1px solid #d0d7de;
+    padding: 10px;
+    text-align: center;
+}
+
+.result-table th {
+    background: #eef2f7;
+}
+
+.review-filters {
+    margin: 15px 0;
+}
+
+.review-card {
+    border: 1px solid #d0d7de;
+    border-radius: 10px;
+    padding: 16px;
+    margin: 15px 0;
+    background: #ffffff;
+}
+
+.review-card.correct {
+    border-left: 6px solid #16803c;
+}
+
+.review-card.wrong {
+    border-left: 6px solid #c62828;
+}
+
+.review-card.unanswered {
+    border-left: 6px solid #d97706;
+}
+
+.review-card h4 {
+    margin-top: 0;
+}
+
+.review-status {
+    font-weight: bold;
+    margin: 8px 0;
+}
+
+.review-option {
+    padding: 7px;
+    margin: 5px 0;
+    border-radius: 5px;
+    background: #f4f6f8;
+    overflow-wrap: anywhere;
+}
+
+.review-explanation {
+    padding: 10px;
+    margin-top: 10px;
+    background: #f0f7ff;
+    border-radius: 6px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 700px) {
+    .result-grid {
+        grid-template-columns: repeat(2, minmax(100px, 1fr));
+    }
+
+    .result-table {
+        font-size: 12px;
+    }
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #results,
+    #results * {
+        visibility: visible;
+    }
+
+    #results {
+        display: block !important;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+
+    .result-actions,
+    .review-filters {
+        display: none !important;
+    }
+
+    .review-card {
+        break-inside: avoid;
+    }
+}
+</style>
+
+
+<script>
+/* ================= PAGE NAVIGATION ================= */
+
+function showPage(pageId) {
+    document.querySelectorAll(".page").forEach(function(page) {
+        page.classList.add("hidden");
+    });
+
+    const target = document.getElementById(pageId);
+
+    if (target) {
+        target.classList.remove("hidden");
+    }
+
+    if (pageId === "results" && latestResult) {
+        renderResults();
+    }
+
+    if (window.MathJax && MathJax.typesetPromise) {
+        MathJax.typesetPromise().catch(function(error) {
+            console.error("MathJax rendering error:", error);
+        });
+    }
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/* ================= ANSWER COMPARISON ================= */
+
+function normalizeAnswer(value) {
+    if (Array.isArray(value)) {
+        return value
+            .map(function(item) {
+                return String(item).trim();
+            })
+            .sort()
+            .join(",");
+    }
+
+    return String(value ?? "").trim();
+}
+
+
+function isResponseCorrect(question, response) {
+    if (
+        response === undefined ||
+        response === null ||
+        response === "" ||
+        (Array.isArray(response) && response.length === 0)
+    ) {
+        return false;
+    }
+
+    if (question.type === "MSQ") {
+        return normalizeAnswer(response) ===
+               normalizeAnswer(question.answer);
+    }
+
+    if (question.type === "NAT") {
+        const userValue = Number(response);
+        const correctValue = Number(question.answer);
+
+        if (
+            !Number.isFinite(userValue) ||
+            !Number.isFinite(correctValue)
+        ) {
+            return false;
+        }
+
+        const tolerance = Number(question.tolerance ?? 0.01);
+
+        return Math.abs(userValue - correctValue) <= tolerance;
+    }
+
+    return normalizeAnswer(response) ===
+           normalizeAnswer(question.answer);
+}
+
+
+/* ================= RESULT CALCULATION ================= */
+
+async function calculateExamResult(auto) {
+
+    if (!examQuestions || examQuestions.length === 0) {
+        alert("No exam questions were found.");
+        return;
+    }
+
+    let correct = 0;
+    let wrong = 0;
+    let unanswered = 0;
+    let positiveMarks = 0;
+    let negativeMarks = 0;
+    let totalMarks = 0;
+
+    const subjectResults = {};
+
+    const reviewedQuestions = [];
+
+    for (let i = 0; i < examQuestions.length; i++) {
+
+        const q = examQuestions[i];
+        const response = examResponses[i];
+
+        const marks = Number(q.marks || 1);
+
+        totalMarks += marks;
+
+        const subjectName = q.subject || "Unassigned";
+
+        if (!subjectResults[subjectName]) {
+            subjectResults[subjectName] = {
+                total: 0,
+                correct: 0,
+                wrong: 0,
+                unanswered: 0,
+                score: 0
+            };
+        }
+
+        const subjectResult = subjectResults[subjectName];
+
+        subjectResult.total++;
+
+        const answered =
+            response !== undefined &&
+            response !== null &&
+            response !== "" &&
+            !(Array.isArray(response) && response.length === 0);
+
+        let status;
+        let questionScore = 0;
+
+        if (!answered) {
+
+            unanswered++;
+            subjectResult.unanswered++;
+
+            status = "unanswered";
+
+        } else if (isResponseCorrect(q, response)) {
+
+            correct++;
+            positiveMarks += marks;
+            questionScore = marks;
+
+            subjectResult.correct++;
+            subjectResult.score += marks;
+
+            status = "correct";
+
+        } else {
+
+            wrong++;
+
+            subjectResult.wrong++;
+
+            status = "wrong";
+
+            /*
+             * GATE-style negative marking:
+             * MCQ 1-mark question: -1/3
+             * MCQ 2-mark question: -2/3
+             * MSQ and NAT: no negative marking
+             */
+
+            if (q.type === "MCQ") {
+
+                const penalty = marks === 2
+                    ? 2 / 3
+                    : 1 / 3;
+
+                negativeMarks += penalty;
+                questionScore = -penalty;
+
+                subjectResult.score -= penalty;
+            }
+        }
+
+        reviewedQuestions.push({
+            question: q,
+            response: response,
+            status: status,
+            score: questionScore,
+            marks: marks,
+            index: i
+        });
+    }
+
+    const finalScore = positiveMarks - negativeMarks;
+
+    latestResult = {
+        date: new Date().toLocaleString(),
+        autoSubmitted: Boolean(auto),
+        correct: correct,
+        wrong: wrong,
+        unanswered: unanswered,
+        positiveMarks: positiveMarks,
+        negativeMarks: negativeMarks,
+        score: finalScore,
+        maxMarks: totalMarks,
+        subjectResults: subjectResults,
+        questions: reviewedQuestions
+    };
+
+    examFinished = true;
+    examActive = false;
+
+    if (typeof stopExamTimer === "function") {
+        stopExamTimer();
+    }
+
+    renderResults();
+    showPage("results");
+}
+
+
+/* ================= RENDER RESULT ================= */
+
+function renderResults() {
+
+    if (!latestResult) {
+        return;
+    }
+
+    const r = latestResult;
+
+    document.getElementById("resultMessage").textContent =
+        (r.autoSubmitted
+            ? "Time is over. Your exam was submitted automatically."
+            : "Your exam has been submitted successfully.") +
+        " Completed: " + r.date;
+
+    document.getElementById("finalScore").textContent =
+        r.score.toFixed(2);
+
+    document.getElementById("maxScore").textContent =
+        "Maximum attempted paper marks: " +
+        r.maxMarks.toFixed(2);
+
+    document.getElementById("correctCount").textContent =
+        r.correct;
+
+    document.getElementById("wrongCount").textContent =
+        r.wrong;
+
+    document.getElementById("unansweredCount").textContent =
+        r.unanswered;
+
+
+    /* SUBJECT-WISE TABLE */
+
+    const subjectBody = document.getElementById("subjectResultBody");
+
+    subjectBody.innerHTML = "";
+
+    Object.keys(r.subjectResults).forEach(function(subjectName) {
+
+        const s = r.subjectResults[subjectName];
+
+        const row = document.createElement("tr");
+
+        const values = [
+            subjectName,
+            s.total,
+            s.correct,
+            s.wrong,
+            s.unanswered,
+            s.score.toFixed(2)
+        ];
+
+        values.forEach(function(value) {
+            const cell = document.createElement("td");
+            cell.textContent = value;
+            row.appendChild(cell);
+        });
+
+        subjectBody.appendChild(row);
+    });
+
+    renderAnswerReview();
+}
+
+
+/* ================= ANSWER REVIEW ================= */
+
+function renderAnswerReview() {
+
+    if (!latestResult) {
+        return;
+    }
+
+    const filter = document.getElementById("reviewFilter").value;
+
+    const container = document.getElementById("answerReviewList");
+
+    container.innerHTML = "";
+
+    const questions = latestResult.questions;
+
+    questions.forEach(function(item) {
+
+        if (filter !== "all" && item.status !== filter) {
+            return;
+        }
+
+        const q = item.question;
+
+        const card = document.createElement("div");
+
+        card.className = "review-card " + item.status;
+
+        const heading = document.createElement("h4");
+
+        heading.textContent =
+            "Question " + (item.index + 1) +
+            " | " + (q.subject || "Unassigned") +
+            " | " + item.marks + " mark(s)";
+
+        card.appendChild(heading);
+
+
+        const questionText = document.createElement("div");
+
+        questionText.innerHTML =
+            typeof escapeHTML === "function"
+                ? escapeHTML(q.text || "")
+                : String(q.text || "");
+
+        card.appendChild(questionText);
+
+
+        const statusText = document.createElement("div");
+
+        statusText.className = "review-status";
+
+        if (item.status === "correct") {
+            statusText.textContent =
+                "✓ Correct Answer | Score: +" +
+                item.score.toFixed(2);
+
+        } else if (item.status === "wrong") {
+            statusText.textContent =
+                "✗ Wrong Answer | Score: " +
+                item.score.toFixed(2);
+
+        } else {
+            statusText.textContent =
+                "Not Answered | Score: 0";
+        }
+
+        card.appendChild(statusText);
+
+
+        /* OPTIONS FOR MCQ / MSQ */
+
+        if (Array.isArray(q.options) && q.options.length > 0) {
+
+            q.options.forEach(function(option, optionIndex) {
+
+                const optionElement = document.createElement("div");
+
+                optionElement.className = "review-option";
+
+                const optionLetter = String.fromCharCode(65 + optionIndex);
+
+                optionElement.innerHTML =
+                    "<strong>" + optionLetter + ".</strong> " +
+                    (
+                        typeof escapeHTML === "function"
+                            ? escapeHTML(option)
+                            : String(option)
+                    );
+
+                card.appendChild(optionElement);
+            });
+        }
+
+
+        /* USER RESPONSE */
+
+        const userAnswer = document.createElement("p");
+
+        userAnswer.innerHTML =
+            "<strong>Your Answer:</strong> " +
+            (
+                typeof escapeHTML === "function"
+                    ? escapeHTML(formatReviewAnswer(item.response))
+                    : formatReviewAnswer(item.response)
+            );
+
+        card.appendChild(userAnswer);
+
+
+        /* CORRECT ANSWER */
+
+        const correctAnswer = document.createElement("p");
+
+        correctAnswer.innerHTML =
+            "<strong>Correct Answer:</strong> " +
+            (
+                typeof escapeHTML === "function"
+                    ? escapeHTML(formatReviewAnswer(q.answer))
+                    : formatReviewAnswer(q.answer)
+            );
+
+        card.appendChild(correctAnswer);
+
+
+        /* EXPLANATION */
+
+        if (q.explanation) {
+
+            const explanation = document.createElement("div");
+
+            explanation.className = "review-explanation";
+
+            explanation.innerHTML =
+                "<strong>Solution / Explanation:</strong><br>" +
+                (
+                    typeof escapeHTML === "function"
+                        ? escapeHTML(q.explanation)
+                        : String(q.explanation)
+                );
+
+            card.appendChild(explanation);
+        }
+
+
+        /* OPTIONAL QUESTION IMAGE */
+
+        if (q.imageUrl) {
+
+            const image = document.createElement("img");
+
+            image.src = q.imageUrl;
+            image.alt = "Question image";
+            image.style.maxWidth = "100%";
+            image.style.maxHeight = "300px";
+            image.style.display = "block";
+            image.style.margin = "12px 0";
+
+            card.appendChild(image);
+        }
+
+        container.appendChild(card);
+    });
+
+    if (container.innerHTML.trim() === "") {
+        container.textContent = "No questions match this filter.";
+    }
+
+    if (window.MathJax && MathJax.typesetPromise) {
+        MathJax.typesetPromise([container]).catch(function(error) {
+            console.error("MathJax rendering error:", error);
+        });
+    }
+}
+
+
+/* ================= FORMAT ANSWER ================= */
+
+function formatReviewAnswer(value) {
+
+    if (value === undefined || value === null || value === "") {
+        return "Not answered";
+    }
+
+    if (Array.isArray(value)) {
+        return value.join(", ");
+    }
+
+    return String(value);
+}
+
+
+/* ================= PRINT RESULT ================= */
+
+function printResult() {
+
+    if (!latestResult) {
+        alert("No result is available to print.");
+        return;
+    }
+
+    window.print();
+}
+
+</script>
+
+<!-- ================= END OF PART 9 ================= -->
+  <!-- ================= PART 10: FINAL INTEGRATION ================= -->
+
+<style>
+.hidden {
+    display: none !important;
+}
+
+.page {
+    width: 100%;
+}
+
+#dashboard,
+#subjects,
+#bank,
+#settings,
+#exam,
+#results {
+    margin-bottom: 25px;
+}
+
+.card {
+    background: #ffffff;
+    border: 1px solid #d9e0e7;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 15px 0;
+}
+
+.card h2,
+.card h3 {
+    margin-top: 0;
+}
+
+input,
+select,
+textarea,
+button {
+    font: inherit;
+}
+
+input,
+select,
+textarea {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+img {
+    max-width: 100%;
+}
+
+@media (max-width: 600px) {
+    .card {
+        padding: 12px;
+    }
+
+    h1 {
+        font-size: 23px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+}
+</style>
+
+
+<!-- FINAL PORTAL STATUS -->
+
+<div id="portalStatus"
+     style="position:fixed;bottom:10px;right:10px;
+     background:#172554;color:white;padding:8px 12px;
+     border-radius:8px;font-size:12px;z-index:9999;">
+    Portal Ready
+</div>
+
+
+<script>
+/* ================= FINAL PORTAL HELPERS ================= */
+
+/*
+ * Show the correct page and refresh dynamic content.
+ * This definition is intended to be the final showPage function.
+ */
+
+function showPage(pageId) {
+
+    const pageIds = [
+        "dashboard",
+        "subjects",
+        "bank",
+        "settings",
+        "exam",
+        "results"
+    ];
+
+    pageIds.forEach(function(id) {
+        const element = document.getElementById(id);
+
+        if (element) {
+            element.classList.add("hidden");
+        }
+    });
+
+    const selectedPage = document.getElementById(pageId);
+
+    if (!selectedPage) {
+        console.warn("Page not found:", pageId);
+        return;
+    }
+
+    selectedPage.classList.remove("hidden");
+
+    if (pageId === "subjects" &&
+        typeof renderSubjects === "function") {
+        renderSubjects();
+    }
+
+    if (pageId === "bank" &&
+        typeof loadBankList === "function") {
+        loadBankList();
+    }
+
+    if (pageId === "settings" &&
+        typeof renderDistribution === "function") {
+        renderDistribution();
+    }
+
+    if (pageId === "results" &&
+        typeof renderResults === "function" &&
+        latestResult) {
+        renderResults();
+    }
+
+    if (window.MathJax &&
+        typeof MathJax.typesetPromise === "function") {
+
+        MathJax.typesetPromise([selectedPage]).catch(function(error) {
+            console.error("MathJax error:", error);
+        });
+    }
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/* ================= DASHBOARD COUNTS ================= */
+
+async function updateDashboardCounts() {
+
+    try {
+
+        const questions = await allQuestions();
+        const subjectsList = await allSubjects();
+
+        const questionCountElement =
+            document.getElementById("dashboardQuestionCount");
+
+        const subjectCountElement =
+            document.getElementById("dashboardSubjectCount");
+
+        if (questionCountElement) {
+            questionCountElement.textContent = questions.length;
+        }
+
+        if (subjectCountElement) {
+            subjectCountElement.textContent = subjectsList.length;
+        }
+
+    } catch (error) {
+        console.error("Dashboard update failed:", error);
+    }
+}
+
+
+/* ================= PORTAL STATUS ================= */
+
+function setPortalStatus(message) {
+
+    const statusElement = document.getElementById("portalStatus");
+
+    if (statusElement) {
+        statusElement.textContent = message;
+    }
+}
+
+
+/* ================= RESET EXAM ================= */
+
+function resetExamForNewAttempt() {
+
+    if (examActive) {
+        const confirmReset = confirm(
+            "The current exam is in progress. " +
+            "Are you sure you want to reset it?"
+        );
+
+        if (!confirmReset) {
+            return;
+        }
+    }
+
+    if (typeof stopExamTimer === "function") {
+        stopExamTimer();
+    }
+
+    examQuestions = [];
+    examResponses = {};
+    examReview = {};
+    currentIndex = 0;
+    timeLeft = 180 * 60;
+    examActive = false;
+    examFinished = false;
+    latestResult = null;
+
+    const questionElement =
+        document.getElementById("questionContainer");
+
+    if (questionElement) {
+        questionElement.innerHTML =
+            "Configure your exam and press Start Exam.";
+    }
+
+    const resultFilter =
+        document.getElementById("reviewFilter");
+
+    if (resultFilter) {
+        resultFilter.value = "all";
+    }
+
+    setPortalStatus("Ready for a new exam");
+
+    showPage("dashboard");
+}
+
+
+/* ================= EXPORT RESULT AS JSON ================= */
+
+function downloadExamResult() {
+
+    if (!latestResult) {
+        alert("Complete an exam before exporting a result.");
+        return;
+    }
+
+    const resultData = {
+        date: latestResult.date,
+        score: latestResult.score,
+        maxMarks: latestResult.maxMarks,
+        correct: latestResult.correct,
+        wrong: latestResult.wrong,
+        unanswered: latestResult.unanswered,
+        positiveMarks: latestResult.positiveMarks,
+        negativeMarks: latestResult.negativeMarks,
+        subjectResults: latestResult.subjectResults
+    };
+
+    const blob = new Blob(
+        [JSON.stringify(resultData, null, 2)],
+        { type: "application/json" }
+    );
+
+    const downloadUrl = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = downloadUrl;
+    link.download = "gate-mechanical-exam-result.json";
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    URL.revokeObjectURL(downloadUrl);
+}
+
+
+/* ================= FINAL INITIALIZATION ================= */
+
+document.addEventListener("DOMContentLoaded", async function() {
+
+    try {
+
+        if (typeof init === "function") {
+            await init();
+        }
+
+        await updateDashboardCounts();
+
+        setPortalStatus("Portal Ready");
+
+    } catch (error) {
+
+        console.error("Portal initialization failed:", error);
+
+        setPortalStatus("Initialization Error");
+
+    }
+
+});
+
+
+/* ================= ERROR HANDLING ================= */
+
+window.addEventListener("error", function(event) {
+
+    console.error("Portal error:", event.message);
+
+});
+
+
+/* ================= END OF PART 10 ================= */
+</script>
+
+</main>
+
+<footer style="text-align:center;padding:20px;
+border-top:1px solid #ddd;margin-top:25px;">
+    <p>GATE Mechanical Engineering Mock Test Portal</p>
+    <small>Practice • Evaluate • Improve</small>
+</footer>
+
+
+<script>
+/* PWA setup: service workers require HTTPS (or localhost). */
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("./service-worker.js")
+      .then(function () { console.log("PWA offline support registered."); })
+      .catch(function (error) {
+        console.warn("PWA service worker registration failed:", error);
+      });
+  });
+}
+</script>
+
+</body>
+</html>
